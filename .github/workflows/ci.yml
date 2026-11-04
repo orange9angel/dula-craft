@@ -1,0 +1,55 @@
+name: ci
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: FedericoCarboni/setup-ffmpeg@v3
+        if: runner.os != 'macOS'
+      - run: brew install ffmpeg
+        if: runner.os == 'macOS'
+      - run: python -m pip install -r skills/dula-start/requirements.txt
+      - run: python scripts/check_public.py
+      - run: python -m unittest discover -s tests -v
+      - name: install, reinstall and uninstall (macOS, Linux)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          sandbox="$(mktemp -d)"
+          export HOME="$sandbox" DULA_CRAFT_REPO="$GITHUB_WORKSPACE"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          bash install.sh
+          bash install.sh
+          test -L "$HOME/.claude/skills/dula-start"
+          test -L "$HOME/.agents/skills/dula-start"
+          test -f "$HOME/.agents/skills/dula-start/SKILL.md"
+          bash install.sh --uninstall
+          test ! -e "$HOME/.claude/skills/dula-start"
+          test ! -e "$HOME/.dula-craft"
+      - name: install, reinstall and uninstall (Windows)
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          $sandbox = Join-Path $env:RUNNER_TEMP 'dula-install'
+          $env:DULA_CRAFT_TEST_USERPROFILE = $sandbox
+          $env:DULA_CRAFT_HOME = Join-Path $sandbox '.dula-craft'
+          $env:DULA_CRAFT_REPO = $env:GITHUB_WORKSPACE
+          git config --global --add safe.directory $env:GITHUB_WORKSPACE
+          Get-Content install.ps1 -Raw -Encoding UTF8 | Invoke-Expression
+          Get-Content install.ps1 -Raw -Encoding UTF8 | Invoke-Expression
+          if (-not (Test-Path (Join-Path $sandbox '.agents\skills\dula-start\SKILL.md'))) { throw 'skill not linked' }
+          $env:DULA_CRAFT_UNINSTALL = '1'
+          Get-Content install.ps1 -Raw -Encoding UTF8 | Invoke-Expression
+          if (Test-Path (Join-Path $sandbox '.dula-craft')) { throw 'not uninstalled' }

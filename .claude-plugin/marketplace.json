@@ -1,0 +1,12 @@
+{
+  "name": "dula-craft",
+  "description": "AI animation craft skills",
+  "owner": {"name": "orange9angel"},
+  "plugins": [
+    {
+      "name": "dula-craft",
+      "source": "./",
+      "description": "Make flat-cel animated shorts with an AI agent: character sheets, cels, lip sync, sound mix and final render."
+    }
+  ]
+}
