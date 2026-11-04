@@ -6,7 +6,7 @@ Let an AI agent guide you through making a flat-color animated short: from a one
 
 Works with **Claude Code, Codex, Kimi Code and Qoder** on Windows, macOS and Linux.
 
-[![Watch the 15-second demo, made by an AI agent using only this repository](docs/demo-poster.jpg)](docs/demo.mp4)
+[![Watch the 15-second demo, made by an AI agent using only this repository](docs/demo-poster.jpg)](https://orange9angel.github.io/dula-craft/watch.html)
 
 *Click to watch the 15-second demo. An AI agent made it using only this repository. [See how](docs/tutorial.md).*
 

@@ -1,6 +1,6 @@
 # Example: Rainy Slide
 
-The settings behind the [demo film](../../docs/demo.mp4). For a walkthrough of every step, see the [tutorial](../../docs/tutorial.md).
+The settings behind the [demo film](https://orange9angel.github.io/dula-craft/watch.html). For a walkthrough of every step, see the [tutorial](../../docs/tutorial.md).
 
 This folder holds only the text: the story, prompts and shot list. Running it generates new images and voices, so your film will differ from the demo. It also uses newer settings than the demo did.
 

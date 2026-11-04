@@ -1,6 +1,6 @@
 # Tutorial: how the demo film was made
 
-[Watch the film](demo.mp4). It's 15 seconds long: a snail afraid of the rain learns that wet ground is slippery, and slides off happily.
+[Watch the film](https://orange9angel.github.io/dula-craft/watch.html). It's 15 seconds long: a snail afraid of the rain learns that wet ground is slippery, and slides off happily.
 
 An AI agent made it using only this repository. This page shows what it did at each step, with the real prompts. You don't have to run any of this by hand: **telling your agent "make me an animated short" does all of it.** Read on to see how it works, or to direct your agent better.
 

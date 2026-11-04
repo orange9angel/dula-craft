@@ -6,7 +6,7 @@
 
 支持 **Claude Code、Codex、Kimi Code、Qoder**，Windows、macOS、Linux 都能用。
 
-[![观看 15 秒演示短片，由 AI 代理只靠这个仓库做成](docs/demo-poster.jpg)](docs/demo.mp4)
+[![观看 15 秒演示短片，由 AI 代理只靠这个仓库做成](docs/demo-poster.jpg)](https://orange9angel.github.io/dula-craft/watch.html)
 
 *点击观看 15 秒演示短片。它由 AI 代理只靠这个仓库做成。[看看怎么做的](docs/zh-CN/tutorial.md)。*
 
