@@ -76,14 +76,17 @@ class Canvas:
         left, top = round(cx - image.width / 2), round(bottom - image.height)
         x0, y0 = max(left, 0), max(top, 0)
         x1, y1 = min(left + image.width, self.width), min(top + image.height, self.height)
-        if x1 > x0 and y1 > y0:
-            self.image.alpha_composite(image.crop((x0 - left, y0 - top, x1 - left, y1 - top)), (x0, y0))
+        if x1 <= x0 or y1 <= y0:
+            return False
+        region = image.crop((x0 - left, y0 - top, x1 - left, y1 - top))
+        self.image.alpha_composite(region, (x0, y0))
+        return region.getchannel("A").getbbox() is not None
 
 
 def mouth_key(actor, key, sheet, t, hold, fps):
     states = actor["talk"].get(key)
     if not states:
-        return key
+        return key, None
     for lid in actor["talk_lines"]:
         envelope = sheet["env"][lid]
         local = t - sheet["lines"][lid]
@@ -93,9 +96,12 @@ def mouth_key(actor, key, sheet, t, hold, fps):
         value = envelope[index] if index < len(envelope) else 0
         # A two-state mouth needs a higher threshold, or it stays open through speech.
         if states[1] == states[2]:
-            return states[2] if value > OPEN_WIDE else states[0]
-        return states[2 if value > OPEN_WIDE else 1 if value > OPEN_HALF else 0]
-    return states[0]
+            state = 2 if value > sheet.get("open_at", {}).get(lid, OPEN_WIDE) else 0
+        else:
+            state = 2 if value > OPEN_WIDE else 1 if value > OPEN_HALF else 0
+        # Record how open the mouth is, not the drawing's name: changing body drawings isn't talking.
+        return states[state], state if len(set(states)) > 1 else 0
+    return states[0], 0
 
 
 def draw(sheet, layers, frame_index):
@@ -116,13 +122,17 @@ def draw(sheet, layers, frame_index):
     for actor in shot["actors"]:
         if "show" in actor and not actor["show"][0] <= local < actor["show"][1]:
             continue
-        u = 0
+        # With no times given, a move lasts the whole shot.
+        u = progress
         if actor.get("t0") is not None:
             u = min(1, max(0, (local - actor["t0"]) / (actor["t1"] - actor["t0"])))
         step = math.floor(u * actor["steps"]) / actor["steps"] if actor.get("steps") else u
+        actor_hold = actor.get("hold", hold)
+        held = int(round(local * fps) / actor_hold)
         key = actor["cels"][held % len(actor["cels"])]
+        mouth = None
         if "talk" in actor:
-            key = mouth_key(actor, key, sheet, t, hold, fps)
+            key, mouth = mouth_key(actor, key, sheet, t, actor_hold, fps)
         if any(b <= local < b + 0.13 for b in actor.get("blink", [])):
             key = actor["blink_cel"]
         shake_x = shake_y = 0
@@ -132,9 +142,19 @@ def draw(sheet, layers, frame_index):
         bob = actor["bob"] if actor.get("bob") and held % 2 else 0
         off = actor.get("offs", {}).get(key, [0, 0])
         image = layers.get(key, actor["h"], flip=actor.get("flip", False), tint=actor.get("tint"))
-        canvas.place(image, lerp(*actor["x"], step) + shake_x + off[0], lerp(*actor["y"], step) + shake_y - bob + off[1])
-        shown.append({"who": actor.get("who"), "cel": key})
-    return canvas.image.convert("RGB"), {"shot": shot["id"], "shown": shown}
+        visible = canvas.place(image, lerp(*actor["x"], step) + shake_x + off[0],
+                               lerp(*actor["y"], step) + shake_y - bob + off[1])
+        if visible:
+            shown.append({"who": actor.get("who"), "cel": key, "mouth": mouth})
+    frame = canvas.image.convert("RGB")
+    level = 1.0
+    if shot.get("fade_in"):
+        level = min(level, local / shot["fade_in"])
+    if shot.get("fade_out"):
+        level = min(level, (shot["t1"] - t) / shot["fade_out"])
+    if level < 1:
+        frame = Image.blend(Image.new("RGB", frame.size), frame, max(level, 0))
+    return frame, {"shot": shot["id"], "shown": shown}
 
 
 def main():

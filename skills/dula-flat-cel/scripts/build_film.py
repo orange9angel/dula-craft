@@ -82,11 +82,17 @@ def talk_states(cel):
     return [cel, m1, m2]
 
 
-def resolve_actor(actor):
+def resolve_actor(actor, frame_width, frame_height):
     """cx, ground and height describe the visible drawing. One scale for all of an actor's drawings,
     taken from the first: scaling each to its own visible height makes a cycle pulse tall and short."""
     out = dict(actor)
     cels = out["cels"] = [out["cels"]] if isinstance(out["cels"], str) else out["cels"]
+    if out.pop("overlay", False):
+        # An effect layer covers the frame exactly, whatever its visible pixels happen to be.
+        for cel in cels:
+            box(cel)
+        out.update(x=[frame_width / 2] * 2, y=[frame_height] * 2, h=frame_height)
+        return out
     x0, y0, x1, y1 = box(cels[0])
     for cel in cels:
         box(cel)
@@ -131,16 +137,20 @@ def gate(y, floor=0.04, ms=40):
     return y * fftconvolve((env > env.max() * floor).astype(float), hann / hann.sum(), "same").clip(0, 1)
 
 
-def bed(path):
+def bed(conf):
     """Ambience: band-limit, even out bursts, and level by loudness with a capped gain.
-    Scaling a near-silent clip to a peak target turns its noise floor into a constant hiss."""
-    y = decode(path)
+    Scaling a near-silent clip to a peak target turns its noise floor into a constant hiss,
+    so the quiet default is safe for room tone. A stated level_db is for a sound that is part
+    of the story, such as rain, and gets more headroom."""
+    conf = {"file": conf} if isinstance(conf, str) else conf
+    level, cap = (conf["level_db"], 8.0) if "level_db" in conf else (-50, 2.0)
+    y = decode(conf["file"])
     y = sosfiltfilt(butter(4, [60, 12000], "bp", fs=SR, output="sos"), y)
     w = int(SR * 0.4)
     env = np.sqrt(fftconvolve(y ** 2, np.ones(w) / w, "same").clip(1e-10))
     y = y * (np.median(env) / env) ** 0.7
     rms = np.sqrt((y ** 2).mean())
-    return y * min(10 ** (-50 / 20) / max(rms, 1e-9), 2.0)
+    return y * min(10 ** (level / 20) / max(rms, 1e-9), cap)
 
 
 def main():
@@ -197,8 +207,11 @@ def main():
             plate[axis] = value if isinstance(value, list) else [value, value]
         plate.setdefault("height", height)
         shot = dict(id=raw["id"], t0=round(t, 3), t1=round(t + duration, 3), hold=raw.get("hold", 3), plate=plate, actors=[])
+        for field in ("fade_in", "fade_out"):
+            if raw.get(field):
+                shot[field] = raw[field]
         for actor in raw.get("actors", []):
-            resolved = resolve_actor(actor)
+            resolved = resolve_actor(actor, width, height)
             mine = [lid for lid in ids if lines[lid].get("who") == actor.get("who")] if actor.get("who") else []
             if mine:
                 talk = resolved.pop("talk", None)
@@ -214,8 +227,8 @@ def main():
             if lines[lid]["audio"] is None or lines[lid].get("mouth_ok"):
                 continue
             on_screen = [a for a in shot["actors"] if a.get("who") == who]
-            moving = [a for a in on_screen if lid in a.get("talk_lines", []) and (
-                len(a["cels"]) > 1 or any(len(set(s)) > 1 for s in a["talk"].values()))]
+            moving = [a for a in on_screen if lid in a.get("talk_lines", []) and
+                      any(len(set(s)) > 1 for s in a["talk"].values())]
             if on_screen and not moving:
                 fail(f"Frozen mouth: line {lid} ({who}) in shot {raw['id']}. Add mouth variants. "
                      f"If it is deliberate, such as one long scream, set mouth_ok on the line with the reason.")
@@ -281,6 +294,17 @@ def main():
     if peak > 0.78:
         mix *= 0.78 / peak
 
+    # Only the film's own start and end fade the sound, so a fade mid-film can't cut off a line.
+    first_shot, last_shot = shots[0][0], shots[-1][0]
+    if first_shot.get("fade_in"):
+        count = int(first_shot["fade_in"] * SR)
+        mix[:count] *= np.linspace(0, 1, count)
+    if last_shot.get("fade_out"):
+        count = int(last_shot["fade_out"] * SR)
+        end = int(total * SR)
+        mix[max(end - count, 0):end] *= np.linspace(1, 0, min(count, end))
+        mix[end:] = 0
+
     Path("build").mkdir(exist_ok=True)
     pcm = (np.clip(mix[:int(total * SR)], -1, 1) * 32767).astype(np.int16)
     with wave.open("build/mix.wav", "wb") as f:
@@ -291,6 +315,7 @@ def main():
 
     sheet = dict(
         width=width, height=height, fps=fps, dur=total, env=env, lines=lines_at,
+        open_at={k: v["mouth_open_at"] for k, v in lines.items() if "mouth_open_at" in v},
         who={k: v.get("who") for k, v in lines.items()},
         plates=film["plates"], shots=[shot for shot, _ in shots],
     )

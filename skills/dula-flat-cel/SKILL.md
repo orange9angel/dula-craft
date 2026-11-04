@@ -19,7 +19,7 @@ python $S/new_project.py my_film && cd my_film
 
 ### 1. Story and shots
 
-Write `story.md`, then `config/film.json` (see the [film.json reference](references/film-json.md)). Keep a first film to 20–30 seconds. Use original characters only.
+Write `story.md`, then `config/film.json` (see the [film.json reference](references/film-json.md)). Keep a first film to 20–30 seconds, and a spoken line takes about 2–3 seconds, so 15 seconds holds 3–5 lines. Use original characters only.
 
 For every line, think through who says it, to whom, and who the camera shows. Jokes shouldn't rely on words the audience won't understand. Cause and effect needs drawings too (runs in → grabs → the object flies off). Don't skip it with a cut.
 
@@ -31,7 +31,7 @@ Put each character in `config/anchors.tsv` (`name<TAB>appearance`), then run:
 python $S/paint.py anchors config/anchors.tsv
 ```
 
-**Open and look at every image yourself.** Then show the designs to the person and get their approval before going on. Every later drawing follows these, so a mistake here costs the most to fix. Fix the proportions in words, such as "head one third of total height, round face, small black bead eyes, red overalls".
+**Open and look at every image yourself.** Some viewers show a transparent area as a colored glow on black, which looks like a failed cutout. If in doubt, check `build/check_alpha.png` from step 3. Then show the designs to the person and get their approval before going on. Every later drawing follows these, so a mistake here costs the most to fix. Fix the proportions in words, such as "head one third of total height, round face, small black bead eyes, red overalls".
 
 ### 3. Backgrounds and drawings
 
@@ -40,14 +40,30 @@ Fill in `config/plates.tsv` (`name<TAB>description`) and `config/cels.tsv` (`dra
 ```bash
 python $S/paint.py plates config/plates.tsv
 python $S/paint.py cels config/cels.tsv
+python $S/prep_cels.py --bases-only    # Check cutouts in build/check_alpha.png before painting mouths
+```
+
+Images take 1–3 minutes each, and `paint.py` reports progress as it goes. If your tool stops long commands, run it in the background. A rerun skips finished images. To redo one, use `--only <name> --force`.
+
+To keep drawings and places continuous, add one more column naming what to follow:
+
+```
+hero_run_a	hero	Running to the right, left foot forward.
+hero_run_b	hero	Running to the right, right foot forward.	hero_run_a
+```
+
+```
+meadow	A meadow under grey rain clouds.
+meadow_sun	The rain has stopped and the sun breaks through.	meadow
 ```
 
 Rules:
 
 - Draw one character per image. The character design is always the first reference. Never use a rejected image as a reference.
 - **Decide which way characters face first.** Images generated one at a time each pick a direction, so two people in a conversation easily end up back to back. Specify it up front, and use `flip` to fix mistakes.
-- Derive action cycles from the same drawing, with the same direction and scale.
-- For a change in time of day, repaint the background. Multiplying a color can't hide a blue sky.
+- Each drawing in an action cycle follows the one before it (the extra column above), so direction, scale and shape stay put. Without this, a cycle pops.
+- For a change in time of day, repaint the background, following the original plate. Multiplying a color can't hide a blue sky.
+- Check a character's proportions in every shot. A pose description like "neck stretched up" can turn into a different body.
 
 ### 4. Mouths and blinks
 
@@ -59,7 +75,9 @@ hero_stand_m2	hero_stand	Change only the mouth to wide open.
 hero_stand_blink	hero_stand	Close both eyes as simple curved lines. Change nothing else.
 ```
 
-Names: `<base>_m1` is half open, and `<base>_m2` is wide open. The base drawing itself must have a closed mouth. If it's drawn with the mouth open, make a closed variant and set all three states with `talk` in film.json.
+Names: `<base>_m1` is half open, and `<base>_m2` is wide open. With only `_m1`, the mouth has two states, open and closed, and that works too. The base drawing itself must have a closed mouth. If it's drawn with the mouth open, make a closed variant and set all three states with `talk` in film.json.
+
+Every drawing of a talking character needs its own mouths, including each drawing in a walk cycle.
 
 ```bash
 python $S/paint.py variants config/variants.tsv
@@ -68,7 +86,7 @@ python $S/prep_cels.py
 
 `prep_cels.py` presses drawings into true flat color and locks each variant to its base. Then **open `build/check_alpha.png`** and check the cutouts on magenta. Redraw any image with leftover background, missing pieces or erased eyes. If it warns about a large changed area, the model edited the body. Add a window `x,y,w,h` as column 4 of variants.tsv.
 
-**Colors drifting?** You can add `config/palette.json` (`{"skin": [250, 220, 190]}`). Only close colors snap to it.
+**Colors drifting?** You can add `config/palette.json` (`{"skin": [250, 220, 190]}`), using colors sampled from the character design. Only close colors snap to it, and `prep_cels.py` applies it again after you change it.
 
 ### 5. Sound
 
@@ -80,7 +98,7 @@ Choose one:
 
 Mouths are calculated from this audio, so settle the voices before making the test.
 
-Optional: `ambience`, `bgm`, `sfx` and `songs`. Use only material the person has the rights to.
+Optional: `ambience`, `bgm`, `sfx` and `songs`. Use only material the person has the rights to. This project doesn't generate music. Without licensed music, leave the score out and let ambience and sound effects carry the film.
 
 ### 6. Test
 
@@ -91,6 +109,10 @@ python $S/render.py --range 0,20 -o output/pilot.mp4
 ```
 
 `build_film.py` stops with an error when a visible character talks but their mouth can't move, the easiest mistake to miss. **Look at every still before showing the test.** Don't wait until the whole film is done to show anyone.
+
+Getting a character on the ground: guess `ground`, render a still, and adjust. It's faster than calculating it.
+
+Don't let the shots sit still. Unless a beat is meant to be still, give each shot one thing that moves: a pan on the plate, a `bob` or `shake`, a change of drawing, or an overlay such as rain. End the film with `fade_out` on the last shot.
 
 ### 7. Full film and final check
 
@@ -120,6 +142,8 @@ Rules of thumb: shots average 3–5 seconds, characters hold each drawing for 3�
 | A walk or run pulses tall and short | Don't size drawings separately. One actor shares one scale automatically. Add `align_head` too |
 | A prop takes on the wrong color | A palette entry is too close. Remove it or lower `SNAP` |
 | The mouth stays open during speech | Two-state mouths use a 0.5 threshold. Check whether the audio is muffled |
+| Quiet words stay closed | One loud word sets the scale for its line. Add a `_m2`, or lower `mouth_open_at` on the line |
+| The rain or wind can't be heard | Ambience is quiet by default. Give it a `level_db`, such as -35 |
 | Constant hiss | The ambience clip is just noise. Replace it. Gain is capped, so it won't be amplified further |
 | Codex says the reference image was lost | Image generation must be its first action. `paint.py` handles this, so run it again |
 

@@ -4,7 +4,7 @@
   python speak.py                 voice all lines that need it
   python speak.py --only l03      redo one line
   python speak.py --dry-run       show what would be sent; spends nothing
-  python speak.py --sound "a quiet garden at dawn, birds and light wind" --out audio/sfx/garden.wav
+  python speak.py --sound "a quiet garden at dawn, birds and light wind" --seconds 10 --out audio/sfx/garden.wav
 
 A line is skipped when its text and voice have not changed, so a rerun costs nothing extra.
 Without a speaker id, each character's first line becomes the reference for their later
@@ -101,6 +101,7 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--sound", help="generate an ambience or sound effect instead of dialogue")
     ap.add_argument("--out", help="output file, used with --sound")
+    ap.add_argument("--seconds", type=float, help="roughly how long the sound should be. Longer costs more")
     args = ap.parse_args()
 
     key = _bootstrap.setting(KEY_NAME)
@@ -115,13 +116,17 @@ def main():
             print(args.sound)
             return 0
         try:
-            seconds = generate(key, f"生成一段纯音效：{args.sound}。无人声、无台词、无音乐。", [], Path(args.out))
+            length = f"时长约{args.seconds:g}秒。" if args.seconds else ""
+            seconds = generate(key, f"生成一段纯音效：{args.sound}。{length}无人声、无台词、无音乐。", [], Path(args.out))
+            trim(Path(args.out))
         except ServiceError as error:
             sys.exit(f"[ERROR] {error}")
         print(f"Done: {args.out} (billed {seconds:.1f} s)")
         return 0
 
     film = json.loads(Path("config/film.json").read_text(encoding="utf-8"))
+    if any(line["text"] == "Write the line here." for line in film["lines"]):
+        sys.exit("config/film.json still has the placeholder line. Write the real lines first. Nothing was spent.")
     voices = film.get("voices", {})
     first = {}
     total = 0.0

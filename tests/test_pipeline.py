@@ -22,8 +22,8 @@ SKILLS = Path(__file__).resolve().parents[1] / "skills"
 S = SKILLS / "dula-flat-cel" / "scripts"
 
 
-def run(script, *args, cwd, ok=True):
-    done = subprocess.run([sys.executable, str(S / script), *map(str, args)], cwd=cwd,
+def run(script, *args, cwd, ok=True, env=None):
+    done = subprocess.run([sys.executable, str(S / script), *map(str, args)], cwd=cwd, env=env,
                           capture_output=True, text=True, encoding="utf-8", errors="replace")
     if ok and done.returncode:
         raise AssertionError(f"{script} failed:\n{done.stdout}\n{done.stderr}")
@@ -146,6 +146,137 @@ class Pipeline(unittest.TestCase):
         run("build_film.py", cwd=f)
         actor = json.loads((f / "build/sheet.json").read_text(encoding="utf-8"))["shots"][0]["actors"][0]
         self.assertEqual(actor["offs"]["hero_b"], [0.0, 0.0])
+
+
+class Features(unittest.TestCase):
+    """What a first full film showed was missing."""
+
+    def setUp(self):
+        self.dir = Path(tempfile.mkdtemp(prefix="dula-features-"))
+        self.film = f = self.dir / "film"
+        run("new_project.py", f, cwd=self.dir)
+        draw_cel(f / "assets/flat/hero_a.png")
+        draw_cel(f / "assets/flat/hero_a_m1.png", mouth=1)
+        draw_cel(f / "assets/flat/hero_a_m2.png", mouth=2)
+        draw_cel(f / "assets/flat/hero_b.png", colour=(90, 170, 240))
+        Image.new("RGB", (1536, 1024), (150, 190, 220)).save(f / "assets/plates/room.png")
+        tone(f / "audio/voice/l1.wav")
+
+    def tearDown(self):
+        shutil.rmtree(self.dir, ignore_errors=True)
+
+    def build(self, shot, lines=(), **top):
+        film = {"plates": {"room": "assets/plates/room.png"}, "lines": list(lines),
+                "shots": [{"id": "S1", "plate": {"key": "room"}, **shot}], **top}
+        (self.film / "config/film.json").write_text(json.dumps(film), encoding="utf-8")
+        run("build_film.py", cwd=self.film)
+
+    def still(self, t):
+        run("render.py", "--stills", t, cwd=self.film)
+        return np.array(Image.open(self.film / f"build/stills/t{float(t):07.2f}.png")).astype(int)
+
+    def displayed(self):
+        run("render.py", cwd=self.film)
+        return json.loads((self.film / "build/displayed.json").read_text(encoding="utf-8"))
+
+    def test_a_move_with_no_times_lasts_the_whole_shot(self):
+        self.build({"seconds": 2, "actors": [{"cels": ["hero_a"], "cx": [200, 1200], "ground": 1000, "height": 500}]})
+        changed = np.abs(self.still(0) - self.still(1.5)).mean()
+        self.assertGreater(changed, 1)
+
+    def test_an_actor_can_hold_longer_than_the_shot(self):
+        self.build({"seconds": 1, "hold": 2, "actors": [
+            {"cels": ["hero_a", "hero_b"], "cx": 720, "ground": 1000, "height": 500, "hold": 12}]})
+        cels = [frame["shown"][0]["cel"] for frame in self.displayed()]
+        self.assertEqual(cels[:12], ["hero_a"] * 12)
+        self.assertEqual(cels[12:24], ["hero_b"] * 12)
+
+    def test_a_cycle_without_mouths_is_refused(self):
+        line = {"id": "l1", "who": "hero", "text": "x"}
+        film = {"plates": {"room": "assets/plates/room.png"}, "lines": [line], "shots": [{
+            "id": "S1", "plate": {"key": "room"}, "lines": ["l1"],
+            "actors": [{"who": "hero", "cels": ["hero_b", "hero_b"], "cx": 720, "ground": 1000, "height": 500}]}]}
+        (self.film / "config/film.json").write_text(json.dumps(film), encoding="utf-8")
+        done = run("build_film.py", cwd=self.film, ok=False)
+        self.assertNotEqual(done.returncode, 0)
+
+    def test_mouth_check_ignores_body_swaps_and_off_frame_actors(self):
+        line = {"id": "l1", "who": "hero", "text": "x", "mouth_ok": "testing the render-time check"}
+        self.build({"lines": ["l1"], "actors": [
+            {"who": "hero", "cels": ["hero_b", "hero_a"], "cx": 720, "ground": 1000, "height": 500,
+             "talk": {"hero_a": ["hero_a", "hero_a", "hero_a"], "hero_b": ["hero_b", "hero_b", "hero_b"]}}]}, [line])
+        self.displayed()
+        done = run("check_mouths.py", cwd=self.film, ok=False)
+        self.assertEqual(done.returncode, 1, done.stdout)
+        self.assertIn("FROZEN MOUTH", done.stdout)
+
+        self.build({"lines": ["l1"], "actors": [
+            {"who": "hero", "cels": ["hero_a"], "cx": 9000, "ground": 1000, "height": 500}]}, [line])
+        self.displayed()
+        self.assertIn("off screen", run("check_mouths.py", cwd=self.film).stdout)
+
+    def test_fades_reach_black_and_silence(self):
+        self.build({"lines": ["l1"], "fade_in": 0.5, "fade_out": 0.5, "actors": []},
+                   [{"id": "l1", "who": "nobody", "text": "x"}])
+        self.assertLess(self.still(0).mean(), 2)
+        self.assertGreater(self.still(0.7).mean(), 50)
+        with wave.open(str(self.film / "build/mix.wav")) as f:
+            pcm = np.frombuffer(f.readframes(f.getnframes()), np.int16)
+        self.assertEqual(int(np.abs(pcm[-200:]).max()), 0)
+
+    def test_an_overlay_fills_the_frame(self):
+        layer = Image.new("RGBA", (720, 540), (0, 0, 0, 0))
+        ImageDraw.Draw(layer).rectangle((300, 200, 310, 210), fill=(255, 255, 255, 255))
+        layer.save(self.film / "assets/flat/rain.png")
+        self.build({"seconds": 1, "actors": [{"overlay": True, "cels": ["rain"]}]})
+        actor = json.loads((self.film / "build/sheet.json").read_text(encoding="utf-8"))["shots"][0]["actors"][0]
+        self.assertEqual((actor["x"][0], actor["y"][0], actor["h"]), (720, 1080, 1080))
+
+    def test_ambience_level_can_be_raised(self):
+        path = self.film / "audio/sfx/rain.wav"
+        tone(path, seconds=3)
+
+        def loudness(ambience):
+            self.build({"seconds": 2, "ambience": "rain", "actors": []}, ambience={"rain": ambience})
+            with wave.open(str(self.film / "build/mix.wav")) as f:
+                pcm = np.frombuffer(f.readframes(f.getnframes()), np.int16) / 32768
+            return 20 * np.log10(np.sqrt((pcm ** 2).mean()) + 1e-9)
+
+        quiet = loudness("audio/sfx/rain.wav")
+        raised = loudness({"file": "audio/sfx/rain.wav", "level_db": -30})
+        self.assertLess(quiet, -40)
+        self.assertGreater(raised, -35)
+
+    def test_paint_lists_follow_references_without_codex(self):
+        f = self.film
+        draw_cel(f / "assets/anchors/hero.png")
+        draw_cel(f / "assets/cels/hero_run_a.png")
+        (f / "config/cels.tsv").write_text("hero_run_b\thero\tnext step\thero_run_a\n", encoding="utf-8")
+        Image.new("RGB", (64, 64)).save(f / "assets/plates/day.png")
+        (f / "config/plates.tsv").write_text("dusk\tat dusk\tday\n", encoding="utf-8")
+        env = {**os.environ, "PATH": str(self.dir)}
+        run("paint.py", "cels", "config/cels.tsv", cwd=f, env=env)
+        run("paint.py", "plates", "config/plates.tsv", cwd=f, env=env)
+        todo = (f / "build/images_todo.md").read_text(encoding="utf-8")
+        self.assertIn("assets/anchors/hero.png, assets/cels/hero_run_a.png", todo)
+        self.assertIn("assets/plates/day.png", todo)
+        self.assertNotEqual(run("paint.py", "cels", "config/cels.tsv", "--force", cwd=f, env=env, ok=False).returncode, 0)
+
+    def test_bases_can_be_checked_before_variants(self):
+        f = self.film
+        draw_cel(f / "assets/cels/hero_c.png")
+        (f / "config/variants.tsv").write_text("hero_c_m1\thero_c\tx\n", encoding="utf-8")
+        run("prep_cels.py", "--bases-only", cwd=f)
+        self.assertTrue((f / "build/check_alpha.png").exists())
+
+    def test_voice_placeholder_spends_nothing(self):
+        d = self.dir / "fresh"
+        run("new_project.py", d, cwd=self.dir)
+        env = {**os.environ, "VOLC_SPEECH_API_KEY": "x"}
+        done = subprocess.run([sys.executable, str(SKILLS / "dula-voice/scripts/speak.py")], cwd=d, env=env,
+                              capture_output=True, text=True, encoding="utf-8", errors="replace")
+        self.assertNotEqual(done.returncode, 0)
+        self.assertIn("placeholder", done.stderr)
 
 
 class FakeService(BaseHTTPRequestHandler):

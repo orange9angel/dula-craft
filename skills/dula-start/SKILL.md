@@ -36,6 +36,10 @@ If the report says ffmpeg is missing, give the person the install command from t
 - To add subtitles to a finished film, use `dula-subtitles`.
 - For opening or transition title cards, use `dula-title-card`.
 
+## If they've handed it over and left
+
+Some people say "you decide, tell me when it's done". Then make the approvals yourself, keep a short list of what you decided in `story.md`, and don't wait. Say at the end what you approved on their behalf, and what you couldn't check.
+
 ## How to talk to them
 
 - Say "character design", "drawing" and "mouth shape", not "cel", "anchor" or "envelope".

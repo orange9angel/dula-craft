@@ -1,6 +1,6 @@
 {
   "name": "dula-craft",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Make flat-cel animated shorts with an AI agent: character sheets, cels, lip sync, sound mix and final render. Needs only Python and ffmpeg.",
   "author": {"name": "orange9angel"},
   "repository": "https://github.com/orange9angel/dula-craft",

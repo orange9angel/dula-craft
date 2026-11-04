@@ -2,10 +2,10 @@
 """Paint every image a film needs. Run from the film folder.
 
   python paint.py anchors   config/anchors.tsv   who <TAB> description
-  python paint.py cels      config/cels.tsv      name <TAB> who <TAB> description
+  python paint.py cels      config/cels.tsv      name <TAB> who <TAB> description [<TAB> drawing to follow]
   python paint.py variants  config/variants.tsv  name <TAB> base <TAB> description [<TAB> x,y,w,h]
-  python paint.py plates    config/plates.tsv    name <TAB> description
-  python paint.py plates    config/plates.tsv --only room
+  python paint.py plates    config/plates.tsv    name <TAB> description [<TAB> plate to follow]
+  python paint.py plates    config/plates.tsv --only room --force     redo one image
 
 Finished images are skipped, so a rerun continues where it stopped. With Codex CLI installed
 the images are generated automatically. Without it, this writes build/images_todo.md: paint
@@ -59,9 +59,19 @@ def codex_image(out, prompt, refs, size, timeout=600):
     if exe.lower().endswith((".cmd", ".bat")):
         cmd = ["cmd", "/c", *cmd]
     started = time.time()
-    proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace",
-                          timeout=timeout, stdin=subprocess.DEVNULL)
-    log = (proc.stdout or "") + "\n" + (proc.stderr or "")
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding="utf-8",
+                            errors="replace", stdin=subprocess.DEVNULL)
+    while True:
+        try:
+            stdout, stderr = proc.communicate(timeout=30)
+            break
+        except subprocess.TimeoutExpired:
+            waited = time.time() - started
+            if waited > timeout:
+                proc.kill()
+                sys.exit(f"Codex did not finish within {timeout} s")
+            print(f"  still painting ({waited:.0f} s)...", flush=True)
+    log = (stdout or "") + "\n" + (stderr or "")
     if proc.returncode != 0:
         sys.exit(f"Codex image generation failed ({proc.returncode}):\n{log[-2000:]}")
     session = re.search(r"session id:\s*([0-9a-f-]+)", log, re.I)
@@ -87,14 +97,20 @@ def jobs(kind, table):
         if kind == "anchors":
             who, desc = row[:2]
             yield Path(f"assets/anchors/{who}.png"), (
-                f"Character model sheet of one original character, full body, front three-quarter view, neutral "
-                f"standing pose, mouth closed. {desc} {style} {ALPHA}"), [], CEL_SIZE
+                f"Character model sheet of one original character, full body, in the view that shows this "
+                f"character best, neutral pose, mouth closed. {desc} {style} {ALPHA}"), [], CEL_SIZE
         elif kind == "cels":
             name, who, desc = row[:3]
+            refs = [f"assets/anchors/{who}.png"]
+            follow = ""
+            if len(row) > 3 and row[3].strip():
+                refs.append(f"assets/cels/{row[3].strip()}.png")
+                follow = ("Image 2 is the previous drawing of this action: keep its scale, facing direction, "
+                          "framing on the canvas and body shape, changing only what the new pose needs. ")
             yield Path(f"assets/cels/{name}.png"), (
                 f"Image 1 is the locked character model sheet: keep the exact head shape, face layout, line weight, "
-                f"colours and proportions. New pose for this exact character, alone, full body in frame: {desc} "
-                f"{style} {ALPHA}"), [f"assets/anchors/{who}.png"], CEL_SIZE
+                f"colours and proportions. {follow}New pose for this exact character, alone, full body in frame: "
+                f"{desc} {style} {ALPHA}"), refs, CEL_SIZE
         elif kind == "variants":
             name, base, desc = row[:3]
             yield Path(f"assets/cels/raw/{name}.png"), (
@@ -103,7 +119,12 @@ def jobs(kind, table):
                 f"Generate exactly one image."), [f"assets/cels/{base}.png"], CEL_SIZE
         else:
             name, desc = row[:2]
-            yield Path(f"assets/plates/{name}.png"), f"{desc} {plate_style}", [], None
+            refs, follow = [], ""
+            if len(row) > 2 and row[2].strip():
+                refs = [f"assets/plates/{row[2].strip()}.png"]
+                follow = ("The attached image is this same place: keep the exact layout, objects and viewpoint, "
+                          "and change only what this description asks for. ")
+            yield Path(f"assets/plates/{name}.png"), f"{follow}{desc} {plate_style} Landscape, 3:2.", refs, None
 
 
 def main():
@@ -112,12 +133,15 @@ def main():
     ap.add_argument("kind", choices=["anchors", "cels", "variants", "plates"])
     ap.add_argument("table")
     ap.add_argument("--only", action="append", default=[], help="only these names; repeatable")
+    ap.add_argument("--force", action="store_true", help="repaint existing images; needs --only")
     args = ap.parse_args()
+    if args.force and not args.only:
+        ap.error("--force needs --only, so nothing is repainted by accident")
 
     todo = []
     table = rows(args.table, args.only)
     for out, prompt, refs, size in jobs(args.kind, table):
-        if out.exists() and out.stat().st_size:
+        if out.exists() and out.stat().st_size and not args.force:
             print(f"Already done: {out}")
             continue
         for ref in refs:

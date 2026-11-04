@@ -40,7 +40,7 @@ Lines can have a `delivery`:
 
 Optional voice fields: `lang` sets the language (by default, the language of the line); `speaker` sets an official Volcano voice ID; `reference` points to reference audio the person has the rights to use.
 
-Describe **the voice itself**: age, tension, breath, pace and weight. "Happy" alone won't change a voice. Don't write "sounds like a certain actor or character", and don't choose voices that imitate well-known characters or real people. Voices carry likeness and copyright risks too.
+Write `desc` and `delivery` in the language of the lines, or in English. Describe **the voice itself**: age, tension, breath, pace and weight. "Happy" alone won't change a voice. Don't write "sounds like a certain actor or character", and don't choose voices that imitate well-known characters or real people. Voices carry likeness and copyright risks too.
 
 ## Generate
 
@@ -56,15 +56,18 @@ When you change a line or a voice and run it again, only what changed is regener
 ## Ambience and sound effects
 
 ```bash
-python <this folder>/scripts/speak.py --sound "A quiet old room, a bird far away now and then" --out audio/sfx/room.wav
+python <this folder>/scripts/speak.py --sound "A quiet old room, a bird far away now and then" --seconds 10 --out audio/sfx/room.wav
 ```
+
+**Always give `--seconds`.** Billing follows the length, and without it a clip can run 30 seconds or more. It's approximate, and very short requests tend to come back longer. Generated clips are often quiet, so give story sounds a `level_db` in film.json (see the film.json reference).
 
 Generate one thing at a time. Don't ask one prompt for dialogue, effects and music together, or you can't adjust levels separately and the mouths will be wrong.
 
 ## Check the result
 
 - Listen if you can. If you can't, tell the person "this audio hasn't been checked by ear".
-- Things you can do yourself: check that lengths make sense (5 seconds for a short line is a problem), and compare a transcription against the script.
+- Things you can do yourself: check that lengths make sense (5 seconds for a short line is a problem). If a transcription tool such as Whisper is available, compare its text against the script. Very quiet words may be missing, which is a sign to redo them.
+- `delivery` is a request, not an exact control. Pause lengths in particular aren't reliable, so shorten the line or regenerate if the pacing is wrong.
 - The same prompt gives a different result each time, so regenerate on errors.
 
 ## Common problems

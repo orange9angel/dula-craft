@@ -2,6 +2,7 @@
 """Turn raw drawings into stable flat cels. Run from the film folder.
 
   python prep_cels.py [--palette config/palette.json]
+  python prep_cels.py --bases-only     check drawings before spending images on mouth variants
 
 1. Every drawing in assets/cels is pressed into true flat fills in assets/flat.
 2. Every mouth or eye variant is locked onto its base, so only the edit differs.
@@ -153,10 +154,13 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--palette", default="config/palette.json")
     ap.add_argument("--variants", default="config/variants.tsv")
+    ap.add_argument("--bases-only", action="store_true", help="skip mouth and eye variants for now")
     args = ap.parse_args()
 
     palette = None
+    palette_time = 0
     if Path(args.palette).exists():
+        palette_time = Path(args.palette).stat().st_mtime
         palette = np.array(list(json.loads(Path(args.palette).read_text(encoding="utf-8")).values()), np.float32)
 
     flat_dir = Path("assets/flat")
@@ -171,12 +175,12 @@ def main():
         if path.stem in names:
             continue
         out = flat_dir / path.name
-        if not out.exists() or out.stat().st_mtime < path.stat().st_mtime:
+        if not out.exists() or out.stat().st_mtime < max(path.stat().st_mtime, palette_time):
             save(flatten(rgba(path), palette), out)
             print(f"Flattened {path.stem}")
 
     problems = 0
-    for row in variants:
+    for row in [] if args.bases_only else variants:
         name, base = row[:2]
         raw = Path(f"assets/cels/raw/{name}.png")
         if not raw.exists():
@@ -198,7 +202,9 @@ def main():
         if own > 15:
             print(f"[WARNING] {name} changed a large area. Check it edited the mouth or eyes, not the body. If needed, add a window x,y,w,h as column 4 of variants.tsv.")
 
-    contact_sheet(sorted(flat_dir.glob("*.png")), Path("build/check_alpha.png"))
+    # Character designs come first: some image viewers show transparent areas as a glow on black.
+    contact_sheet([*sorted(Path("assets/anchors").glob("*.png")), *sorted(flat_dir.glob("*.png"))],
+                  Path("build/check_alpha.png"))
     print("Review sheet: build/check_alpha.png. Look at it yourself.")
     return 1 if problems else 0
 
