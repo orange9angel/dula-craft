@@ -5,7 +5,7 @@ Goal: your first 20–30 second film. Most of the time goes to waiting for image
 ## Before you start
 
 - dula-craft is installed (see the [README](../README.md)).
-- You have one AI tool: Claude Code, Codex or Kimi Code.
+- You have one AI tool: Claude Code, Codex, Kimi Code or Qoder.
 - For automatic images, install and sign in to [Codex CLI](https://github.com/openai/codex). Otherwise, you make the images yourself.
 - For voices, have audio files ready or [set up a voice key](configuration.md#voices). You can also start with a silent draft.
 

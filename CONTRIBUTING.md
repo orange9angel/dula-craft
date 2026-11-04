@@ -5,7 +5,7 @@ Contributions are published under the MIT License. Before a technique joins this
 1. **It runs on its own.** It works right after install, and depends on nothing unpublished.
 2. **It has tests.** New scripts have tests in `tests/`. Anything that needs a paid service says clearly what is not tested automatically.
 3. **It is a general rule.** Write when it applies, what to do and why, not the production history of one film.
-4. **It works everywhere.** It supports Claude Code, Codex and Kimi Code, with paths relative to `SKILL.md` and no tool-specific variables.
+4. **It works everywhere.** It supports Claude Code, Codex, Kimi Code and Qoder, with paths relative to `SKILL.md` and no tool-specific variables.
 5. **It is written in English.** Skills tell the agent to talk to people in their own language.
 
 Never add:

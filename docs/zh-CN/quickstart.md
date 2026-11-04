@@ -5,7 +5,7 @@
 ## 开始之前
 
 - 已安装 dula-craft（见 [README](../../README.zh-CN.md)）。
-- 一个 AI 工具：Claude Code、Codex 或 Kimi Code。
+- 一个 AI 工具：Claude Code、Codex、Kimi Code 或 Qoder。
 - 想让出图全自动：装好并登录 [Codex CLI](https://github.com/openai/codex)，否则要手动出图。
 - 想要配音：准备音频文件，或[配置火山密钥](configuration.md#配音)。也可以先做无声样片。
 

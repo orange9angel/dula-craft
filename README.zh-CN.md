@@ -4,7 +4,7 @@
 
 让 AI 带你做一支平涂线条动画短片：从一句话故事，到角色设定、动作画、嘴型、配音和成片。
 
-支持 **Claude Code、Codex、Kimi Code**，Windows、macOS、Linux 都能用。
+支持 **Claude Code、Codex、Kimi Code、Qoder**，Windows、macOS、Linux 都能用。
 
 ![用这套流程画的原创角色](docs/demo.jpg)
 

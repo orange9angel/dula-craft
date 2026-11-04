@@ -75,7 +75,7 @@ python .../configure.py --remove   # 删除
 | `~/.dula-craft/venv` | Python 环境 |
 | `~/.dula-craft/config.env` | 你的密钥（如果配置了） |
 | `~/.claude/skills/dula-*` | 给 Claude Code 的链接 |
-| `~/.agents/skills/dula-*` | 给 Codex、Kimi Code 的链接 |
+| `~/.agents/skills/dula-*` | 给 Codex、Kimi Code、Qoder 的链接 |
 
 想换位置，安装前设置环境变量 `DULA_CRAFT_HOME`。
 

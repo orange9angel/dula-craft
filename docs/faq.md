@@ -5,6 +5,9 @@
 **My agent can't find the skill.**
 Quit your AI tool completely and open it again. A running session may not see newly installed skills.
 
+**Qoder doesn't list the skills.**
+In a running Qoder CLI session, run `/skills reload`. Qoder CLI finds them through `~/.agents/skills`. This has been checked with Qoder CLI, but not with Qoder IDE.
+
 **It says git, Python or ffmpeg is missing.**
 See [required software](configuration.md#required-software). Open a new terminal after installing.
 

@@ -5,6 +5,9 @@
 **AI 说找不到这个 skill。**
 请完全退出并重新打开 AI 工具。正在运行的会话不一定能看到新装的 skill。
 
+**Qoder 里看不到这些 skill。**
+在运行中的 Qoder CLI 里输入 `/skills reload`。Qoder CLI 通过 `~/.agents/skills` 找到它们。这一点在 Qoder CLI 上检查过，Qoder IDE 还没有验证。
+
 **提示缺 git、Python 或 ffmpeg。**
 安装命令见[配置说明](configuration.md#必需的软件)。装完要重新打开终端。
 

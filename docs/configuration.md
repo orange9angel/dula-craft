@@ -74,7 +74,7 @@ Put music you have the rights to in `audio/music/` and tell your agent which tra
 | `~/.dula-craft/venv` | The Python environment |
 | `~/.dula-craft/config.env` | Your key, if you set one |
 | `~/.claude/skills/dula-*` | Links for Claude Code |
-| `~/.agents/skills/dula-*` | Links for Codex and Kimi Code |
+| `~/.agents/skills/dula-*` | Links for Codex, Kimi Code and Qoder |
 
 To use another location, set `DULA_CRAFT_HOME` before installing.
 

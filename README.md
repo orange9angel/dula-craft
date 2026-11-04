@@ -4,7 +4,7 @@ English | [简体中文](README.zh-CN.md)
 
 Let an AI agent guide you through making a flat-color animated short: from a one-line idea to character designs, drawings, lip sync, voices and a finished video.
 
-Works with **Claude Code, Codex and Kimi Code** on Windows, macOS and Linux.
+Works with **Claude Code, Codex, Kimi Code and Qoder** on Windows, macOS and Linux.
 
 ![An original character drawn with this workflow](docs/demo.jpg)
 

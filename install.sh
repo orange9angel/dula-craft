@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install dula-craft for Claude Code, Codex and Kimi Code. Safe to rerun; rerunning updates.
+# Install dula-craft for Claude Code, Codex, Kimi Code and Qoder. Safe to rerun; rerunning updates.
 #   curl -fsSL https://raw.githubusercontent.com/orange9angel/dula-craft/main/install.sh | bash
 #   curl -fsSL .../install.sh | bash -s -- --uninstall
 set -euo pipefail
@@ -16,7 +16,7 @@ esac
 HOME_DIR="${DULA_CRAFT_HOME:-$HOME/.dula-craft}"
 REPO_URL="${DULA_CRAFT_REPO:-https://github.com/orange9angel/dula-craft.git}"
 REPO_DIR="$HOME_DIR/repo"
-# Claude Code reads the first; Codex and Kimi Code read the second.
+# Claude Code reads the first; Codex, Kimi Code and Qoder read the second.
 TARGETS=("$HOME/.claude/skills" "$HOME/.agents/skills")
 
 skills() { find "$REPO_DIR/skills" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;; }
@@ -68,4 +68,4 @@ done
 
 "$PY" "$REPO_DIR/skills/dula-start/scripts/doctor.py" --fix || true
 echo
-echo "All set. Restart Claude Code, Codex or Kimi Code and say: make me an animated short"
+echo "All set. Restart Claude Code, Codex, Kimi Code or Qoder and say: make me an animated short"

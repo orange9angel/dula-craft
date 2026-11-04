@@ -1,4 +1,4 @@
-# Install dula-craft for Claude Code, Codex and Kimi Code on Windows. Safe to rerun; rerunning updates.
+# Install dula-craft for Claude Code, Codex, Kimi Code and Qoder on Windows. Safe to rerun; rerunning updates.
 #   irm https://raw.githubusercontent.com/orange9angel/dula-craft/main/install.ps1 | iex
 #   $env:DULA_CRAFT_UNINSTALL='1'; irm .../install.ps1 | iex
 # This script runs through iex, so it must never call exit: that would close the person's window.
@@ -10,7 +10,7 @@
     $homeDir = if ($env:DULA_CRAFT_HOME) { $env:DULA_CRAFT_HOME } else { Join-Path $userHome '.dula-craft' }
     $repoUrl = if ($env:DULA_CRAFT_REPO) { $env:DULA_CRAFT_REPO } else { 'https://github.com/orange9angel/dula-craft.git' }
     $repoDir = Join-Path $homeDir 'repo'
-    # Claude Code reads the first; Codex and Kimi Code read the second.
+    # Claude Code reads the first; Codex, Kimi Code and Qoder read the second.
     $targets = @((Join-Path $userHome '.claude\skills'), (Join-Path $userHome '.agents\skills'))
 
     function Get-LinkTarget($path) {
@@ -82,5 +82,5 @@
     & $python (Join-Path $repoDir 'skills\dula-start\scripts\doctor.py') --fix
     $ErrorActionPreference = $previous
     Write-Host ''
-    Write-Host 'All set. Restart Claude Code, Codex or Kimi Code and say: make me an animated short'
+    Write-Host 'All set. Restart Claude Code, Codex, Kimi Code or Qoder and say: make me an animated short'
 }
