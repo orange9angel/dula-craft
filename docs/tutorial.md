@@ -6,7 +6,7 @@ An AI agent made it using only this repository. This page shows what it did at e
 
 All the settings are in [`examples/rainy-slide`](../examples/rainy-slide), ready to copy.
 
-**What it took:** about 40 minutes, 16 generated images and under a minute of generated audio.
+**What it took:** about 40 minutes, 16 generated images and about a minute of generated audio.
 
 ## 1. Start with one sentence
 
