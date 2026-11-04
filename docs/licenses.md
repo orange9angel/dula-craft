@@ -4,7 +4,7 @@
 
 ## The short version
 
-- **Everything in this repository** (code, documentation and the demo image) is under the [MIT License](../LICENSE).
+- **Everything in this repository** (code, documentation, examples and the demo film) is under the [MIT License](../LICENSE).
 - You can use, change, share and sell it for free, as long as you keep the copyright notice. It comes with no warranty.
 - **Your films are yours.** This project claims no rights over what you make with it.
 
@@ -45,9 +45,9 @@ When you use these services, your content goes to the provider and their terms a
 
 Product names and trademarks belong to their owners and are mentioned only to describe compatibility.
 
-## Demo image
+## Demo film
 
-The character in `docs/demo.jpg` is an original example made with an image model. It's provided under the MIT License with this repository.
+The characters and story in `docs/demo.mp4` and `docs/demo-poster.jpg` are original. Its images were made with an image model through Codex CLI, and its voices and sound effects with Volcano Engine Seed-Audio. It's provided under the MIT License with this repository, to the extent that the project holds rights in AI-generated material.
 
 ## Fonts
 

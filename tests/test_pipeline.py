@@ -279,6 +279,45 @@ class Features(unittest.TestCase):
         self.assertIn("placeholder", done.stderr)
 
 
+class Example(unittest.TestCase):
+    """The tutorial's example must keep working, even though its images aren't stored."""
+
+    ROOT = Path(__file__).resolve().parents[1] / "examples/rainy-slide"
+
+    def test_every_name_in_the_shot_list_is_defined(self):
+        film = json.loads((self.ROOT / "config/film.json").read_text(encoding="utf-8"))
+
+        def names(table):
+            rows = (self.ROOT / "config" / table).read_text(encoding="utf-8").splitlines()
+            return [row.split("\t") for row in rows if row.strip()]
+
+        drawings = {row[0] for row in names("cels.tsv")} | {row[0] for row in names("variants.tsv")}
+        drawings |= {"rain_a", "rain_b", "rain_c"}
+        plates = {row[0] for row in names("plates.tsv")}
+        lines = {line["id"] for line in film["lines"]}
+        whos = {row[0] for row in names("anchors.tsv")}
+        self.assertEqual(set(film["voices"]), whos)
+        for row in names("cels.tsv"):
+            self.assertIn(row[1], whos)
+            if len(row) > 3:
+                self.assertIn(row[3], drawings)
+        for shot in film["shots"]:
+            self.assertIn(shot["plate"]["key"], plates)
+            self.assertLessEqual(set(shot.get("lines", [])), lines)
+            for actor in shot["actors"]:
+                self.assertLessEqual(set(actor["cels"]), drawings)
+
+    def test_rain_layers_are_transparent_and_full_frame(self):
+        with tempfile.TemporaryDirectory() as d:
+            run("new_project.py", Path(d) / "film", cwd=d)
+            run("make_rain.py", cwd=Path(d) / "film")
+            with Image.open(Path(d) / "film/assets/flat/rain_a.png") as image:
+                self.assertEqual(image.size, (1440, 1080))
+                alpha = np.array(image.getchannel("A"))
+            self.assertGreater((alpha == 0).mean(), 0.5)
+            self.assertGreater(alpha.max(), 60)
+
+
 class FakeService(BaseHTTPRequestHandler):
     requests = []
 

@@ -58,6 +58,10 @@ my_film/
 
 想手动调整镜头，看 [film.json 格式](../../skills/dula-flat-cel/references/film-json.md)。
 
+## 看一个真实的例子
+
+[教程](tutorial.md)会带你看演示短片是怎么做出来的，并附上真实的提示词。
+
 ## 出问题了？
 
 看[常见问题](faq.md)，或者直接把报错发给 AI。

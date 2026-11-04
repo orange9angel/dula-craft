@@ -6,7 +6,9 @@ Let an AI agent guide you through making a flat-color animated short: from a one
 
 Works with **Claude Code, Codex, Kimi Code and Qoder** on Windows, macOS and Linux.
 
-![An original character drawn with this workflow](docs/demo.jpg)
+[![Watch the 15-second demo, made by an AI agent using only this repository](docs/demo-poster.jpg)](docs/demo.mp4)
+
+*Click to watch the 15-second demo. An AI agent made it using only this repository. [See how](docs/tutorial.md).*
 
 ## Get started in three steps
 
@@ -37,6 +39,7 @@ Your agent checks your setup, asks three questions and gets to work. It talks to
 | I want to... | Read |
 |---|---|
 | Make my first film, step by step | [Quickstart](docs/quickstart.md) |
+| See how the demo film was made | [Tutorial](docs/tutorial.md) |
 | Set up images and voices | [Configuration](docs/configuration.md) |
 | Fix an error | [FAQ](docs/faq.md) |
 | Know who owns my film and whether I can sell it | [Licensing and rights](docs/licenses.md) |

@@ -130,6 +130,10 @@ Confirm each of these before handing over, and say plainly if you couldn't:
 - [ ] A single drawing moving across the screen has a `bob` or more drawings, or it reads as sliding
 - [ ] You listened to it. If you can't listen, say the audio hasn't been checked by ear
 
+## A complete example
+
+`examples/rainy-slide` in this repository has the prompts and shot list of a finished 15-second film, and `docs/tutorial.md` explains it. Find them at `../../examples/rainy-slide` and `../../docs/tutorial.md` from this file. Use them as a model when someone asks for one.
+
 ## Pacing
 
 Rules of thumb: shots average 3–5 seconds, characters hold each drawing for 3–4 frames (about 7 drawings a second), with frequent close-ups and exaggerated expressions. `hold` is the number of frames per drawing.

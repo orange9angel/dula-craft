@@ -6,7 +6,9 @@
 
 支持 **Claude Code、Codex、Kimi Code、Qoder**，Windows、macOS、Linux 都能用。
 
-![用这套流程画的原创角色](docs/demo.jpg)
+[![观看 15 秒演示短片，由 AI 代理只靠这个仓库做成](docs/demo-poster.jpg)](docs/demo.mp4)
+
+*点击观看 15 秒演示短片。它由 AI 代理只靠这个仓库做成。[看看怎么做的](docs/zh-CN/tutorial.md)。*
 
 ## 三步开始
 
@@ -37,6 +39,7 @@ curl -fsSL https://raw.githubusercontent.com/orange9angel/dula-craft/main/instal
 | 我想…… | 看这里 |
 |---|---|
 | 一步一步做出第一支片子 | [快速开始](docs/zh-CN/quickstart.md) |
+| 看演示片是怎么做出来的 | [教程](docs/zh-CN/tutorial.md) |
 | 配置出图和配音 | [配置说明](docs/zh-CN/configuration.md) |
 | 解决报错和常见问题 | [常见问题](docs/zh-CN/faq.md) |
 | 了解能不能商用、作品归谁 | [版权和协议](docs/zh-CN/licenses.md) |

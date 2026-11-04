@@ -58,6 +58,10 @@ my_film/
 
 To adjust shots by hand, see the [film.json reference](../skills/dula-flat-cel/references/film-json.md).
 
+## See a real example
+
+The [tutorial](tutorial.md) walks through how the demo film was made, with its real prompts.
+
 ## Something went wrong?
 
 See the [FAQ](faq.md), or paste the error to your agent.

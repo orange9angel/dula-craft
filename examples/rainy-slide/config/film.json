@@ -1,0 +1,261 @@
+{
+  "width": 1440,
+  "height": 1080,
+  "fps": 24,
+  "plates": {
+    "path": "assets/plates/path.png",
+    "wet": "assets/plates/wet.png"
+  },
+  "ambience": {
+    "rain": {
+      "file": "audio/sfx/rain.wav",
+      "level_db": -35
+    }
+  },
+  "voices": {
+    "snail": {
+      "desc": "一个大约六岁的小孩，声音细而软，喉咙有点紧，气息轻，语速中等偏慢，胆小"
+    },
+    "frog": {
+      "desc": "一个大约十岁的男孩，声音明亮略带沙哑，胸腔放松，气息足，语速快，爽朗"
+    }
+  },
+  "lines": [
+    {
+      "id": "l01",
+      "who": "snail",
+      "text": "要下雨了……我最怕雨了！",
+      "delivery": "发抖，声音发紧，最后三个字带一点哭腔"
+    },
+    {
+      "id": "l02",
+      "who": "frog",
+      "text": "怕什么？地湿了才好滑呢！",
+      "delivery": "轻松地笑着说，像在逗朋友，结尾上扬"
+    },
+    {
+      "id": "l03",
+      "who": "snail",
+      "text": "咦？好滑！",
+      "delivery": "紧凑，先轻轻疑惑一声“咦”，只停半拍，马上清清楚楚、响亮惊喜地说“好滑”，每个字都咬清",
+      "mouth_open_at": 0.25
+    },
+    {
+      "id": "l04",
+      "who": "snail",
+      "text": "哇，我飞起来啦！",
+      "delivery": "放开嗓子，兴奋大喊，一口气冲到句尾",
+      "mouth_open_at": 0.25
+    },
+    {
+      "id": "l05",
+      "who": "frog",
+      "text": "等等我！",
+      "delivery": "边跑边喊，有点喘，笑着"
+    }
+  ],
+  "shots": [
+    {
+      "id": "S1",
+      "plate": {
+        "key": "path",
+        "height": 1400,
+        "x": 720,
+        "y": 1150
+      },
+      "hold": 3,
+      "lines": [
+        "l01"
+      ],
+      "pre": 0.3,
+      "actors": [
+        {
+          "who": "snail",
+          "cels": [
+            "snail_fear"
+          ],
+          "cx": 760,
+          "ground": 1000,
+          "height": 360,
+          "shake": 6
+        }
+      ],
+      "fade_in": 0.4
+    },
+    {
+      "id": "S2",
+      "plate": {
+        "key": "path",
+        "height": 1080,
+        "x": 720,
+        "y": 1080,
+        "tint": [
+          0.82,
+          0.86,
+          0.94
+        ]
+      },
+      "hold": 3,
+      "lines": [
+        "l02"
+      ],
+      "actors": [
+        {
+          "who": "snail",
+          "cels": [
+            "snail_fear"
+          ],
+          "cx": 420,
+          "ground": 1000,
+          "height": 270,
+          "shake": 4
+        },
+        {
+          "who": "frog",
+          "cels": [
+            "frog_talk"
+          ],
+          "cx": 1040,
+          "ground": 1010,
+          "height": 520
+        },
+        {
+          "overlay": true,
+          "cels": [
+            "rain_a",
+            "rain_b",
+            "rain_c"
+          ]
+        }
+      ],
+      "ambience": "rain"
+    },
+    {
+      "id": "S3",
+      "plate": {
+        "key": "path",
+        "height": 1728,
+        "x": 720,
+        "y": 1300,
+        "tint": [
+          0.82,
+          0.86,
+          0.94
+        ]
+      },
+      "hold": 3,
+      "lines": [
+        "l03"
+      ],
+      "sfx": [
+        {
+          "file": "audio/sfx/plip.wav",
+          "at": 0.1,
+          "gain": 0.5
+        },
+        {
+          "file": "audio/sfx/slide.wav",
+          "at": 1.3,
+          "gain": 0.25
+        }
+      ],
+      "actors": [
+        {
+          "who": "snail",
+          "cels": [
+            "snail_wow"
+          ],
+          "cx": [
+            600,
+            780
+          ],
+          "t0": 1.3,
+          "t1": 1.9,
+          "steps": 4,
+          "ground": 1040,
+          "height": 640
+        },
+        {
+          "overlay": true,
+          "cels": [
+            "rain_a",
+            "rain_b",
+            "rain_c"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "plate": {
+        "key": "wet",
+        "height": 1400,
+        "x": [
+          1050,
+          390
+        ],
+        "y": 1290
+      },
+      "hold": 4,
+      "lines": [
+        "l04",
+        "l05"
+      ],
+      "seconds": 5.0,
+      "sfx": [
+        {
+          "file": "audio/sfx/slide.wav",
+          "at": 0.5,
+          "gain": 0.5
+        }
+      ],
+      "actors": [
+        {
+          "who": "snail",
+          "cels": [
+            "snail_zoom_a",
+            "snail_zoom_b"
+          ],
+          "cx": [
+            -300,
+            1950
+          ],
+          "t0": 0,
+          "t1": 4.3,
+          "ground": 1045,
+          "height": 300,
+          "bob": 10
+        },
+        {
+          "who": "frog",
+          "cels": [
+            "frog_hop"
+          ],
+          "flip": true,
+          "cx": [
+            -280,
+            620
+          ],
+          "t0": 2.2,
+          "t1": 5.0,
+          "ground": 1050,
+          "height": 380,
+          "bob": 34,
+          "show": [
+            2.2,
+            6
+          ]
+        },
+        {
+          "overlay": true,
+          "cels": [
+            "rain_a",
+            "rain_b",
+            "rain_c"
+          ]
+        }
+      ],
+      "fade_out": 0.6
+    }
+  ]
+}

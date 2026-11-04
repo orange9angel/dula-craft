@@ -85,7 +85,7 @@ Write `x` or `y` as `[start, end]` to pan. `tint: [1, 0.92, 0.84]` multiplies th
 
 Later actors draw over earlier ones. A speaker who isn't in `actors`, or who has left the frame, counts as a voice-over, and their mouth isn't checked.
 
-An actor doesn't have to be a character. Any transparent PNG you put in `assets/flat/` works, so effects such as rain can be a few drawings cycled as an `overlay`. Check that you have the rights to anything you add.
+An actor doesn't have to be a character. Any transparent PNG you put in `assets/flat/` works, so effects can be a few drawings cycled as an `overlay`. For rain, run `make_rain.py`, then use `{"overlay": true, "cels": ["rain_a", "rain_b", "rain_c"]}`. Check that you have the rights to anything you add.
 
 For a two-state mouth, write `talk` as `["closed", "open", "open"]`. If several drawings have their own mouths, write `{"drawing_a": ["closed", "half", "wide"], "drawing_b": [...]}`.
 
