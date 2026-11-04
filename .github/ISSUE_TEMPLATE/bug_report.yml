@@ -1,0 +1,49 @@
+name: Something isn't working
+description: Report an error or wrong result. 也可以用中文填写。
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **This page is public.** Don't paste API keys, personal paths or anything private. If you've already posted a key, revoke it in your provider's console.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what you got instead.
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: Error message
+      description: Paste the exact text, if there is one.
+      render: text
+  - type: dropdown
+    id: agent
+    attributes:
+      label: AI tool
+      options:
+        - Claude Code
+        - Codex
+        - Kimi Code
+        - Qoder
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - macOS
+        - Linux
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of doctor.py
+      description: Run `python ~/.dula-craft/repo/skills/dula-start/scripts/doctor.py` and paste the result. It never shows your key. Check for personal paths first.
+      render: text

@@ -1,5 +1,7 @@
 # 常见问题
 
+没找到答案？到 [Discussions](https://github.com/orange9angel/dula-craft/discussions) 提问。
+
 ## 安装
 
 **AI 说找不到这个 skill。**

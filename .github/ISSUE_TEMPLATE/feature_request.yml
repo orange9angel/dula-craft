@@ -1,0 +1,19 @@
+name: Suggest an improvement
+description: Propose a feature or a better way to do something. 也可以用中文填写。
+labels: [enhancement]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: What are you trying to make or do?
+      description: Start with the goal, not the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help?
+  - type: markdown
+    attributes:
+      value: |
+        This project doesn't accept tools that get around a site's login, captcha, regional limits or terms of service, or material from third-party works. See [Contributing](https://github.com/orange9angel/dula-craft/blob/main/CONTRIBUTING.md).

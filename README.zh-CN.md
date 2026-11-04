@@ -71,6 +71,16 @@ curl -fsSL https://raw.githubusercontent.com/orange9angel/dula-craft/main/instal
 没有遥测，也不上传数据。只有你选用出图或配音时，提示词、参考图和参考音频才会发给对应的服务。
 配音密钥只存在你电脑上的 `~/.dula-craft/config.env`。
 
+## 获取帮助
+
+| 我想…… | 去这里 |
+|---|---|
+| 提问、聊想法、晒作品 | [Discussions](https://github.com/orange9angel/dula-craft/discussions) |
+| 报告错误、提改进建议 | [Issues](https://github.com/orange9angel/dula-craft/issues/new/choose) |
+| 私下报告安全问题 | [安全说明](SECURITY.md)（英文） |
+
+发帖需要一个免费的 GitHub 账号。除安全报告外，内容都是公开的，所以千万不要贴密钥。中文、英文都可以。这是业余维护的项目，回复可能会慢一些。
+
 ## 协议
 
 全部内容采用 [MIT 协议](LICENSE)。用它做的作品归你，详见[版权和协议](docs/zh-CN/licenses.md)。

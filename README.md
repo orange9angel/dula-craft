@@ -70,6 +70,16 @@ Run the install command again to update. See [Configuration](docs/configuration.
 
 There is no telemetry, and this project collects nothing. Your prompts, reference images and reference audio go to an outside service only when you choose to use that service. Your voice key stays on your computer in `~/.dula-craft/config.env`.
 
+## Get help
+
+| I want to... | Go to |
+|---|---|
+| Ask a question, share an idea or show my film | [Discussions](https://github.com/orange9angel/dula-craft/discussions) |
+| Report an error or suggest an improvement | [Issues](https://github.com/orange9angel/dula-craft/issues/new/choose) |
+| Report a security problem privately | [Security](SECURITY.md) |
+
+You need a free GitHub account to post, and everything except security reports is public, so never post a key. You're welcome to write in Chinese or English. This is a spare-time project, so replies may take a while.
+
 ## License
 
 Everything here is under the [MIT License](LICENSE). The films you make are yours. See [Licensing and rights](docs/licenses.md).

@@ -1,5 +1,7 @@
 # FAQ
 
+Didn't find your answer? Ask in [Discussions](https://github.com/orange9angel/dula-craft/discussions).
+
 ## Installing
 
 **My agent can't find the skill.**
