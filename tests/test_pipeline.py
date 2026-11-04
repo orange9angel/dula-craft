@@ -5,6 +5,7 @@ Everything here is a test fixture only. It exists to prove the pipeline runs, no
 import base64
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -306,6 +307,12 @@ class Example(unittest.TestCase):
             self.assertLessEqual(set(shot.get("lines", [])), lines)
             for actor in shot["actors"]:
                 self.assertLessEqual(set(actor["cels"]), drawings)
+
+    def test_only_the_spoken_lines_are_not_in_english(self):
+        film = json.loads((self.ROOT / "config/film.json").read_text(encoding="utf-8"))
+        for line in film["lines"]:
+            line.pop("text")
+        self.assertIsNone(re.search(r"[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]", json.dumps(film, ensure_ascii=False)))
 
     def test_rain_layers_are_transparent_and_full_frame(self):
         with tempfile.TemporaryDirectory() as d:

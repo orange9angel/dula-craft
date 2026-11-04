@@ -30,6 +30,14 @@ RULES = {
 MEDIA = re.compile(r"\.(png|jpe?g|webp|gif|mp3|wav|flac|m4a|mp4|mov|mkv|avi)$", re.I)
 ALLOWED_MEDIA = re.compile(r"^docs/")  # anything under docs/ is cleared original work
 
+# Skills and examples are in English. These are the only places other languages belong.
+ENGLISH_ONLY = re.compile(r"^(skills|examples)/")
+OTHER_LANGUAGE = re.compile(r"[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]")
+CONTENT_ALLOWED = {
+    "skills/dula-voice/scripts/speak.py",  # prompts sent to the voice service, tested in Chinese
+    "examples/rainy-slide/config/film.json",  # the spoken lines
+}
+
 BLOCKED = {
     "03c33c8bc99dad70", "144e505a35066787", "14895f8c5b0314f9", "234af911e971bff2",
     "241e6cad9afce57a", "33c614ca3cf78827", "34a533dfd7273a9b", "3583c4551b4d0baf",
@@ -103,6 +111,9 @@ def main():
                 if rule.search(line):
                     print(f"{path}:{number}: {name}")
                     problems += 1
+            if ENGLISH_ONLY.match(path) and path not in CONTENT_ALLOWED and OTHER_LANGUAGE.search(line):
+                print(f"{path}:{number}: not in English")
+                problems += 1
             if any(digest(t) in BLOCKED for t in tokens(line)):
                 print(f"{path}:{number}: blocked name")
                 problems += 1

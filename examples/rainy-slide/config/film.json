@@ -14,10 +14,10 @@
   },
   "voices": {
     "snail": {
-      "desc": "一个大约六岁的小孩，声音细而软，喉咙有点紧，气息轻，语速中等偏慢，胆小"
+      "desc": "A child of about six, thin soft voice, slightly tight throat, light breath, a little slow, timid"
     },
     "frog": {
-      "desc": "一个大约十岁的男孩，声音明亮略带沙哑，胸腔放松，气息足，语速快，爽朗"
+      "desc": "A boy of about ten, bright and slightly husky, relaxed chest, plenty of breath, quick, cheerful"
     }
   },
   "lines": [
@@ -25,33 +25,33 @@
       "id": "l01",
       "who": "snail",
       "text": "要下雨了……我最怕雨了！",
-      "delivery": "发抖，声音发紧，最后三个字带一点哭腔"
+      "delivery": "Trembling, tight voice, a hint of tears on the last three words"
     },
     {
       "id": "l02",
       "who": "frog",
       "text": "怕什么？地湿了才好滑呢！",
-      "delivery": "轻松地笑着说，像在逗朋友，结尾上扬"
+      "delivery": "Laughing easily, teasing a friend, rising at the end"
     },
     {
       "id": "l03",
       "who": "snail",
       "text": "咦？好滑！",
-      "delivery": "紧凑，先轻轻疑惑一声“咦”，只停半拍，马上清清楚楚、响亮惊喜地说“好滑”，每个字都咬清",
+      "delivery": "Tight pacing: a soft puzzled first word, half a beat of pause, then the rest loud, clear and delighted",
       "mouth_open_at": 0.25
     },
     {
       "id": "l04",
       "who": "snail",
       "text": "哇，我飞起来啦！",
-      "delivery": "放开嗓子，兴奋大喊，一口气冲到句尾",
+      "delivery": "Full voice, shouting with excitement, one breath to the end",
       "mouth_open_at": 0.25
     },
     {
       "id": "l05",
       "who": "frog",
       "text": "等等我！",
-      "delivery": "边跑边喊，有点喘，笑着"
+      "delivery": "Calling out while running, a little out of breath, laughing"
     }
   ],
   "shots": [

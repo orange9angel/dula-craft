@@ -1,6 +1,6 @@
 ---
 name: dula-title-card
-description: Generate ink-style title cards entirely in code, with letters growing out of ink, a light sweep and floating bokeh. Use for opening titles, end cards, chapter cards, transitions, or covering a flaw between shots. Uses no image generation quota. Also for 字卡, 片头.
+description: Generate ink-style title cards entirely in code, with letters growing out of ink, a light sweep and floating bokeh. Use for opening titles, end cards, chapter cards, transitions, or covering a flaw between shots. Uses no image generation quota.
 ---
 
 # Ink title cards

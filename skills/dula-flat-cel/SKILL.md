@@ -1,6 +1,6 @@
 ---
 name: dula-flat-cel
-description: Make flat-color line-art animated shorts with an image model and scripts, from story, character designs, drawings and mouth variants to a finished video with sound. Needs only Python and ffmpeg. Use for animated shorts, TV cartoon style, limited animation, dialogue films, keeping a character consistent across shots, or fixing mouths out of sync and flickering drawing swaps. Also for 动画短片, 平涂动画.
+description: Make flat-color line-art animated shorts with an image model and scripts, from story, character designs, drawings and mouth variants to a finished video with sound. Needs only Python and ffmpeg. Use for animated shorts, TV cartoon style, limited animation, dialogue films, keeping a character consistent across shots, or fixing mouths out of sync and flickering drawing swaps.
 ---
 
 # Flat-color animation

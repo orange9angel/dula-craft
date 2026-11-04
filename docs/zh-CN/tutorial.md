@@ -77,12 +77,14 @@ python $S/prep_cels.py
 每个角色写一段对嗓音本身的描述，每句台词写念法（`film.json`）：
 
 ```json
-"snail": {"desc": "一个大约六岁的小孩，声音细而软，喉咙有点紧，气息轻，语速中等偏慢，胆小"}
+"snail": {"desc": "A child of about six, thin soft voice, slightly tight throat, light breath, a little slow, timid"}
 ```
 
 ```json
-{"id": "l01", "who": "snail", "text": "要下雨了……我最怕雨了！", "delivery": "发抖，声音发紧，最后三个字带一点哭腔"}
+{"id": "l01", "who": "snail", "text": "要下雨了……我最怕雨了！", "delivery": "Trembling, tight voice, a hint of tears on the last three words"}
 ```
+
+演示片当时用中文写的声音描述，示例配置现在统一用英文，中文也同样可用。
 
 ```bash
 python <dula-voice 目录>/scripts/speak.py --dry-run    # 先看提示词，不花钱

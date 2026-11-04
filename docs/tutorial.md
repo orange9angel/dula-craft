@@ -12,7 +12,7 @@ All the settings are in [`examples/rainy-slide`](../examples/rainy-slide), ready
 
 The whole story fits in [`story.md`](../examples/rainy-slide/story.md):
 
-> A little snail afraid of rain is told by a frog that wet ground is the best for sliding, and "flies" in the rain for the first time.
+> A little snail called Aman, afraid of rain, is told by a frog that wet ground is the best for sliding, and "flies" in the rain for the first time.
 
 Then it became four beats: the fear, the frog's idea, the discovery, and the payoff.
 
@@ -84,7 +84,7 @@ Each character gets a description of their voice itself, and each line a note on
 {"id": "l01", "who": "snail", "text": "要下雨了……我最怕雨了！", "delivery": "Trembling, tight voice, a hint of tears on the last three words"}
 ```
 
-The film's lines are in Chinese ("It's going to rain... I'm so scared of rain!"). Lines can be in any language the voice service supports.
+The film's lines are in Chinese ("It's going to rain... I'm so scared of rain!"), and were directed in Chinese. Direction here is shown in English, which is how the example is written. Lines can be in any language the voice service supports.
 
 ```bash
 python <dula-voice folder>/scripts/speak.py --dry-run    # See the prompts. Costs nothing

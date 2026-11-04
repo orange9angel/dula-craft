@@ -1,6 +1,6 @@
 ---
 name: dula-subtitles
-description: Make and burn in polished dual-language subtitles for a finished video, with a color for each speaker and an optional opening card. Use for adding subtitles, captions, ASS subtitle files or hardcoded subtitles to a video or animation. Also for 字幕, 双语字幕.
+description: Make and burn in polished dual-language subtitles for a finished video, with a color for each speaker and an optional opening card. Use for adding subtitles, captions, ASS subtitle files or hardcoded subtitles to a video or animation.
 ---
 
 # Dual-language subtitles

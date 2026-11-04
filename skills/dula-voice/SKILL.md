@@ -1,6 +1,6 @@
 ---
 name: dula-voice
-description: Voice every line of an animated short with the person's own Volcano Engine Seed-Audio key, keeping each character's voice consistent. Also generates ambience and sound effects. Use for character voices, dialogue audio, voice acting, ambience and sound effects. Also for 配音, 音效.
+description: Voice every line of an animated short with the person's own Volcano Engine Seed-Audio key, keeping each character's voice consistent. Also generates ambience and sound effects. Use for character voices, dialogue audio, voice acting, ambience and sound effects.
 ---
 
 # Voices
@@ -40,7 +40,7 @@ Lines can have a `delivery`:
 
 Optional voice fields: `lang` sets the language (by default, the language of the line); `speaker` sets an official Volcano voice ID; `reference` points to reference audio the person has the rights to use.
 
-Write `desc` and `delivery` in the language of the lines, or in English. Describe **the voice itself**: age, tension, breath, pace and weight. "Happy" alone won't change a voice. Don't write "sounds like a certain actor or character", and don't choose voices that imitate well-known characters or real people. Voices carry likeness and copyright risks too.
+Write `desc` and `delivery` in English, or in the language of the lines. Describe **the voice itself**: age, tension, breath, pace and weight. "Happy" alone won't change a voice. Don't write "sounds like a certain actor or character", and don't choose voices that imitate well-known characters or real people. Voices carry likeness and copyright risks too.
 
 ## Generate
 

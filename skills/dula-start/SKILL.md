@@ -1,6 +1,6 @@
 ---
 name: dula-start
-description: The starting point for making a flat-color animated short with AI. Checks and sets up the environment, shapes the idea and hands off to the next step. Use when someone says "make an animation", "make an animated short", "start Dula", 做动画, 做动画短片, or is using dula-craft for the first time.
+description: The starting point for making a flat-color animated short with AI. Checks and sets up the environment, shapes the idea and hands off to the next step. Use when someone says "make an animation", "make an animated short", "start Dula", or is using dula-craft for the first time.
 ---
 
 # Start a film

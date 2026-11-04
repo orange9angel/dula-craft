@@ -1,11 +1,11 @@
-# 雨天滑行
+# Rainy Slide
 
-One-sentence summary: 怕下雨的小蜗牛阿慢被青蛙点破——湿地面最好滑，它在雨里第一次"飞"了起来。
+One-sentence summary: A little snail called Aman, afraid of rain, is told by a frog that wet ground is the best for sliding, and "flies" in the rain for the first time.
 
 ## Beats
-1. 乌云压顶，阿慢缩在路边发抖："要下雨了，我最怕雨了！"（阿慢看画右的路）
-2. 雨落下。青蛙呱呱从右边对它说："怕什么？地湿了才好滑呢！"（两者面对面）
-3. 一滴雨砸在阿慢头上，它探头、往前一蹭："咦？好滑！"
-4. 阿慢从左到右滑过雨中小路，开心大喊："哇，我飞起来啦！"青蛙追在后面："等等我！"
+1. Dark clouds gather. Aman huddles by the path, trembling, looking along the path to screen right: "It's going to rain... I'm so scared of rain!"
+2. The rain falls. The frog speaks from the right, and the two face each other: "Scared of what? Wet ground is the best for sliding!"
+3. A raindrop lands on Aman's head. It pokes its head out and shuffles forward: "Huh? It's slippery!"
+4. Aman slides from left to right along the rainy path, shouting happily: "Wow, I'm flying!" The frog chases behind: "Wait for me!"
 
 Direction rule: snail always faces and travels screen right. Frog faces screen left.

@@ -29,6 +29,6 @@ claude plugin validate .
 
 ## Other rules
 
-- Write skills and guides in English, and tell agents to talk to people in their own language.
+- Write skills, code, comments, script messages and examples in English, and tell agents to talk to people in their own language. Other languages are only for the content itself: spoken lines, subtitles, and prompts sent to a voice service that were tested in that language. `check_public.py` enforces this. Translated guides live in `docs/zh-CN`.
 - Keep films out of this repository, except cleared demos in `docs/`.
 - Before saying something works, try it the way a user would: open the page, play the video, run the command from a clean install.
