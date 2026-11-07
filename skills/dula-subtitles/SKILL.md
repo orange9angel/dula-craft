@@ -25,7 +25,9 @@ Create `subs.json`. You write the translation yourself:
 ```
 
 - `text` is the main line, and `translation` is the smaller second line. Leave out `translation` for one language.
-- Each `speaker` gets a color automatically, in order of appearance.
+- Each `speaker` gets a color automatically, in order of appearance. For video sites watched on phones, or busy pictures, add `--plain`: white text with a solid black outline for everyone.
+- The subtitle canvas matches the video's frame size, so 4:3 and vertical videos keep the right size and position. Without `--video`, give `--size 1440x1080`. With one language, the line sits low at the bottom; with a translation, it moves up to make room.
+- Short lines get shorter fades automatically, so they don't stay faint.
 - Leave `group` and `project` empty for no opening card.
 - Add `"fade": "300,500"` to an event to change its fade in and out, in milliseconds.
 - Set the font with `--font`. The default depends on the system. If you see empty boxes, choose an installed font that covers the language.
