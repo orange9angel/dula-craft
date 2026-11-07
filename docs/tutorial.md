@@ -146,7 +146,7 @@ The demo is a first attempt, shown as it came out, so you can see what to expect
 - **The two backgrounds don't quite look like one place.** The film was made before plates could follow each other. The example's settings use this, so yours should match better.
 - **There's no music.** Add a track you have the rights to with `bgm`.
 
-The example folder also has these newer settings, so rebuilding it will differ from the demo: rain as an overlay, audible ambience, fades and better mouths on quiet words. Images and voices are generated fresh each time, so your film will be its own version in any case.
+The example folder also has these newer settings, so rebuilding it will differ from the demo: rain as an overlay, audible ambience, a fade-out at the end and better mouths on quiet words. Images and voices are generated fresh each time, so your film will be its own version in any case.
 
 ## Make it your own
 

@@ -297,6 +297,8 @@ def main():
     # Only the film's own start and end fade the sound, so a fade mid-film can't cut off a line.
     first_shot, last_shot = shots[0][0], shots[-1][0]
     if first_shot.get("fade_in"):
+        print("[NOTE] The first shot fades in from black, so video sites will show a black thumbnail. "
+              "Drop its fade_in unless the black opening is wanted.")
         count = int(first_shot["fade_in"] * SR)
         mix[:count] *= np.linspace(0, 1, count)
     if last_shot.get("fade_out"):

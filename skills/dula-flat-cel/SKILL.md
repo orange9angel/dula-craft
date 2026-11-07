@@ -112,7 +112,7 @@ python $S/render.py --range 0,20 -o output/pilot.mp4
 
 Getting a character on the ground: guess `ground`, render a still, and adjust. It's faster than calculating it.
 
-Don't let the shots sit still. Unless a beat is meant to be still, give each shot one thing that moves: a pan on the plate, a `bob` or `shake`, a change of drawing, or an overlay such as rain. End the film with `fade_out` on the last shot.
+Don't let the shots sit still. Unless a beat is meant to be still, give each shot one thing that moves: a pan on the plate, a `bob` or `shake`, a change of drawing, or an overlay such as rain. End the film with `fade_out` on the last shot. Don't put `fade_in` on the first shot: video sites use the first frame as the thumbnail, and a fade makes it black.
 
 ### 7. Full film and final check
 
@@ -124,6 +124,7 @@ python $S/check_mouths.py
 Confirm each of these before handing over, and say plainly if you couldn't:
 
 - [ ] You looked at a real frame from every shot
+- [ ] The first frame of the video is a real picture, not black: it becomes the thumbnail on video sites
 - [ ] `check_mouths.py` reports no frozen mouths
 - [ ] You looked at every mouth state of every talking drawing, zoomed in on the face in the rendered video. In a full frame a mouth is a few dozen pixels, and a faded, clipped or missing mouth looks fine. `check_mouths.py` only proves the drawings change, not that the mouth is still there
 - [ ] Each character still looks like the same person across shots (face and proportions matter more than color)
