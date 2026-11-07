@@ -125,6 +125,7 @@ Confirm each of these before handing over, and say plainly if you couldn't:
 
 - [ ] You looked at a real frame from every shot
 - [ ] `check_mouths.py` reports no frozen mouths
+- [ ] You looked at every mouth state of every talking drawing, zoomed in on the face in the rendered video. In a full frame a mouth is a few dozen pixels, and a faded, clipped or missing mouth looks fine. `check_mouths.py` only proves the drawings change, not that the mouth is still there
 - [ ] Each character still looks like the same person across shots (face and proportions matter more than color)
 - [ ] People in a conversation face each other
 - [ ] A single drawing moving across the screen has a `bob` or more drawings, or it reads as sliding
@@ -143,6 +144,7 @@ Rules of thumb: shots average 3â€“5 seconds, characters hold each drawing for 3â
 | Symptom | Cause and fix |
 |---|---|
 | Body colors flicker when mouths swap | The variant didn't go through `prep_cels.py` |
+| An open mouth looks faded, half see-through, or cut by a straight line | The lock kept only part of the edit. Compare the locked variant with the raw edit: the whole drawn mouth must come through at full strength. If the open jaw reaches the edge of the edit window, repaint with more room below the mouth |
 | A walk or run pulses tall and short | Don't size drawings separately. One actor shares one scale automatically. Add `align_head` too |
 | A prop takes on the wrong color | A palette entry is too close. Remove it or lower `SNAP` |
 | The mouth stays open during speech | Two-state mouths use a 0.5 threshold. Check whether the audio is muffled |

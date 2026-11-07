@@ -41,6 +41,9 @@ A character is talking, but that drawing has no mouth variants. Ask your agent t
 **The mouth stays open or barely moves.**
 Run `check_mouths.py` to see the drawing changes for each line. The audio may be muffled, or there may be only one mouth variant.
 
+**The open mouth looks faded, see-through, or cut off.**
+Checks only show that the drawings change, not what the mouth looks like. Ask your agent to zoom in on each talking face in the rendered video and compare every mouth with the painted variant. If the open jaw runs past the edit area, the variant needs repainting with more room below the mouth.
+
 **It says "Key rejected, or Audio Generation 1.0 is not enabled".**
 Check that the service is enabled and that the key came from the speech console. See [Voices](configuration.md#voices).
 
