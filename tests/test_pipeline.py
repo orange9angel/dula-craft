@@ -428,11 +428,14 @@ class Others(unittest.TestCase):
             (d / "s.json").write_text(json.dumps({"events": [
                 {"start": 0.1, "end": 1, "speaker": "A", "text": "Hello", "translation": "Bonjour"}]}), encoding="utf-8")
             done = subprocess.run([sys.executable, str(SKILLS / "dula-subtitles/scripts/make_subs.py"),
-                                   "--events", str(d / "s.json"), "--ass-out", str(d / "s.ass")], capture_output=True)
+                                   "--events", str(d / "s.json"), "--ass-out", str(d / "s.ass"),
+                                   "--srt-out", str(d / "s.srt")], capture_output=True)
             self.assertEqual(done.returncode, 0, done.stderr)
             ass = (d / "s.ass").read_text(encoding="utf-8")
             self.assertIn("Hello", ass)
             self.assertIn("Bonjour", ass)
+            srt = (d / "s.srt").read_text(encoding="utf-8")
+            self.assertIn("00:00:00,100 --> 00:00:01,000\nHello\nBonjour", srt)
 
     def test_title_card(self):
         with tempfile.TemporaryDirectory() as d:

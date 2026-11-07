@@ -32,6 +32,12 @@ Create `subs.json`. You write the translation yourself:
 - Add `"fade": "300,500"` to an event to change its fade in and out, in milliseconds.
 - Set the font with `--font`. The default depends on the system. If you see empty boxes, choose an installed font that covers the language.
 
+## Burned in or switchable
+
+- Add `--srt-out subs.srt` to also write an SRT file.
+- On platforms with subtitle tracks, such as YouTube, upload the clean video and the SRT. Viewers can turn the subtitles off, the platform can translate them, and search can read them.
+- Burn the subtitles in for platforms without subtitle tracks, and for vertical short clips that people often watch muted.
+
 ## Watch out for
 
 - Burn subtitles only onto a clean video. Burning onto a video that already has them gives you two sets.

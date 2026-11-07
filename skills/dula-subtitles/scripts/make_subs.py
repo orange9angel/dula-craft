@@ -60,6 +60,18 @@ def ts(sec: float) -> str:
     return f"{h}:{m:02d}:{s:05.2f}"
 
 
+def build_srt(doc: dict) -> str:
+    """Plain SRT for players with switchable subtitle tracks (YouTube and similar)."""
+    def t(sec: float) -> str:
+        ms = int(round(sec * 1000))
+        return f"{ms // 3600000:02d}:{ms // 60000 % 60:02d}:{ms // 1000 % 60:02d},{ms % 1000:03d}"
+    out = []
+    for i, e in enumerate(doc["events"], 1):
+        lines = [e["text"]] + ([e["translation"]] if e.get("translation") else [])
+        out.append(f"{i}\n{t(e['start'])} --> {t(e['end'])}\n" + "\n".join(lines) + "\n")
+    return "\n".join(out)
+
+
 def build_ass(doc: dict, cn_font: str, width: int = 1280, height: int = 720, plain: bool = False) -> str:
     k = height / 720  # style sizes are written for 720 pixels high
     two_lines = any(ev.get("translation") or ev.get("en") for ev in doc["events"])
@@ -112,6 +124,8 @@ def main() -> int:
     ap.add_argument("--out-video", type=Path, help="output video with subtitles burned in")
     ap.add_argument("--plain", action="store_true",
                     help="white text with a solid black outline for every speaker (best on phones and busy pictures)")
+    ap.add_argument("--srt-out", type=Path,
+                    help="also write an SRT file, for uploading as a switchable track instead of burning in")
     ap.add_argument("--size", help="canvas WIDTHxHEIGHT; taken from --video when given, else 1280x720")
     args = ap.parse_args()
 
@@ -127,6 +141,9 @@ def main() -> int:
         width, height = int(probe[0]), int(probe[1])
     args.ass_out.write_text(build_ass(doc, args.cn_font, width, height, args.plain), encoding="utf-8")
     print(f"ass: {args.ass_out}")
+    if args.srt_out:
+        args.srt_out.write_text(build_srt(doc), encoding="utf-8")
+        print(f"srt: {args.srt_out}")
 
     if args.video or args.out_video:
         if not (args.video and args.out_video):
