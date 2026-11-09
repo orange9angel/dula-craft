@@ -38,6 +38,7 @@ All positions are output pixels. The default frame is 1440×1080 at 24 frames pe
 | `lines` | Lines played in order. Shot length is the total line length plus padding |
 | `seconds` | Minimum length. Required for shots with no lines |
 | `pre`, `post` | Padding before and after lines. Defaults: 0.15 and 0.25 seconds |
+| `together` | All the shot's lines start at the same time instead of one after another, for duets and choirs. Give each singer a line with `who` set, so each mouth follows its own voice. A visible actor with no line in the shot keeps its first (closed) mouth state |
 | `hold` | Frames per drawing. Dialogue 3, fast action 2, slow or dreamlike 6–24 |
 | `ambience` | Ambience name. Stays on until changed. `null` turns it off |
 | `fade_in`, `fade_out` | Fade from or to black, in seconds. On the first and last shots, the sound fades too |
