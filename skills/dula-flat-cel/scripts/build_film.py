@@ -190,7 +190,9 @@ def main():
                 fail(f"Line {lid} is used twice")
             used.add(lid)
         pre, post = raw.get("pre", 0.15), raw.get("post", 0.25)
-        duration = max(raw.get("seconds", 0), pre + post + sum(lines[i]["dur"] + 0.05 for i in ids))
+        together = raw.get("together", False)   # duets: every line starts at pre (one per singer)
+        spoken = max((lines[i]["dur"] + 0.05 for i in ids), default=0) if together else sum(lines[i]["dur"] + 0.05 for i in ids)
+        duration = max(raw.get("seconds", 0), pre + post + spoken)
         if duration <= 0:
             fail(f"Shot {raw['id']} has no lines, so it needs seconds")
         cursor = t + pre
@@ -198,7 +200,8 @@ def main():
             lines_at[lid] = round(cursor, 3)
             audio = lines[lid]["audio"]
             env[lid] = envelope(audio, fps) if audio is not None else [0.0] * int(lines[lid]["dur"] * fps)
-            cursor += lines[lid]["dur"] + 0.05
+            if not together:
+                cursor += lines[lid]["dur"] + 0.05
         plate = dict(raw["plate"])
         if plate["key"] not in film["plates"]:
             fail(f"Shot {raw['id']} uses unregistered plate {plate['key']}")
@@ -220,6 +223,8 @@ def main():
                 for states in resolved["talk"].values():
                     for state in states:
                         box(state)
+            else:
+                resolved.pop("talk", None)   # no line of theirs in this shot: show the first (closed) state
             shot["actors"].append(resolved)
         # A visible speaker whose mouth cannot move is the easiest mistake to ship.
         for lid in ids:
