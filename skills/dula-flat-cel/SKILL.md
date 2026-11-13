@@ -146,7 +146,11 @@ Rules of thumb: shots average 3â€“5 seconds, characters hold each drawing for 3â
 |---|---|
 | Body colors flicker when mouths swap | The variant didn't go through `prep_cels.py` |
 | An open mouth looks faded, half see-through, or cut by a straight line | The lock kept only part of the edit. Compare the locked variant with the raw edit: the whole drawn mouth must come through at full strength. If the open jaw reaches the edge of the edit window, repaint with more room below the mouth |
-| A walk or run pulses tall and short | Don't size drawings separately. One actor shares one scale automatically. Add `align_head` too |
+| A walk or run pulses tall and short | Don't size drawings separately. One actor shares one scale automatically. Add `align_head` too. If the image model drew some cycle drawings smaller, scale every drawing to one body height and one foot line before use |
+| The upper body shifts on every step of a walk | Each drawing redrew the backpack, hands and jacket. Keep one upper body for the whole cycle and swap only the legs, joined at the jacket hem. Hand-drawn walks are built the same way |
+| Two legs merge into one shape in a walk | Both legs are one colour. Ask for the far leg in a darker shade with its own full outline, and draw contact, down, passing and up for each foot |
+| A held shot gets "acting" and the background, clothes or a nearby face changes | An image edit redraws everything inside its crop, not only the part you asked to move. Prefer a separate drawing of the character on a transparent background over an empty plate. Never let an edit crop include a speaking face, or the mouth variants stop matching the eyes |
+| A sung word is missing from the song | Music models sometimes skip a word. Transcribe the vocal stem against the lyrics before timing the film to it; regenerating the song is more reliable than splicing in one sung syllable |
 | A prop takes on the wrong color | A palette entry is too close. Remove it or lower `SNAP` |
 | The mouth stays open during speech | Two-state mouths use a 0.5 threshold. Check whether the audio is muffled |
 | Quiet words stay closed | One loud word sets the scale for its line. Add a `_m2`, or lower `mouth_open_at` on the line |
