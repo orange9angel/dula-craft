@@ -73,6 +73,9 @@ its continuous move.
 - No new plate set before its location key is approved. Do not reuse the key for a
   different location; make one per place.
 - Never zoom a plate to fake a close shot. Paint the closer camera.
+- A plate for a travel shot is ordered for the drawings you have: with side-on character drawings, ask for the road,
+  path or track to run straight across the frame. A road that curves away or recedes toward a vanishing point needs
+  back or three-quarter drawings of the traveller; otherwise use it only as an empty establishing image.
 - A wide-fit zoom statistic is not enough: measure the raster actually sampled after atlas
   extraction, earlier downsampling and local cropping. A 195x110 crop shown at 1280x720 is
   about 6.6x, even inside a large source atlas. Reject missing native detail before encoding,

@@ -29,7 +29,10 @@ and keep the story itself out of chat unless they ask for it.
 ## Rules that held across films
 
 - Walking is the hardest motion to get right with a few drawings: prefer static-in-flow, held poses with moving light,
-  and cuts. When someone must walk, put the camera axis on the movement axis.
+  and cuts. When someone must walk or ride, put the camera axis on the movement axis.
+- Travel follows the ground and the drawing: check checklist item 4a for every moving figure before rendering. The
+  same mistake (a side-on figure gliding diagonally along a pavement or a curving road) recurs whenever a path is set
+  as "from point A to point B" instead of along the drawn surface.
 - Smooth beats choppy: continuous motion (streams, drifts, cross-dissolves) over position jumps.
 - Several locations beat one; a single set becomes monotonous within a minute.
 - Hierarchy of matter: ghosts and translucent colour for most things; a solid object appears once, at the binding moment.
