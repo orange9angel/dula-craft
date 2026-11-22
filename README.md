@@ -54,6 +54,13 @@ Your agent checks your setup, asks three questions and gets to work. It talks to
 | `dula-voice` | Voices, ambience and sound effects, using your own key (optional) |
 | `dula-subtitles` | Dual-language subtitles with a color for each speaker |
 | `dula-title-card` | Ink-style title cards, made entirely in code |
+| `dula-story-design` | Premises, titles, beat sheet and storyboard, checked by a second model reading them cold |
+| `dula-look-key` | One approved frame per location, then plates and drawings derived from it so everything fuses |
+| `dula-flat-cinema` | Light, shadow, beams, dust and glow in flat shapes, so characters sit in the scene |
+| `dula-action-staging` | Special moves and action climaxes from a few key drawings: charge, release, impact frame |
+| `dula-svg-cel` | Draw props, sets, effects and simple characters in SVG code, with no image quota |
+| `dula-physical-plausibility` | Check that objects on screen are built and behave believably |
+| `dula-director-pass` | Review each full draft as a director, find the weakest moments and fix them in time with the music |
 
 ## What does it cost?
 

@@ -31,6 +31,7 @@ AI 生成内容能否受版权保护，各地规定不同，发布前请按需�
 | Pillow | 图像处理 | MIT-CMU |
 | opencv-python-headless | 图像处理 | Apache-2.0（打包版含 LGPL 的 FFmpeg 库） |
 | FFmpeg | 音视频 | LGPL 或 GPL，取决于你安装的版本 |
+| Playwright（可选，含 Chromium） | `dula-svg-cel` 渲染 SVG 画稿 | Apache-2.0（Chromium：BSD-3-Clause 等） |
 
 把这些软件和你的产品一起分发时，请自行确认对应协议的要求。
 
@@ -40,7 +41,7 @@ AI 生成内容能否受版权保护，各地规定不同，发布前请按需�
 
 | 服务 | 用途 | 是否必需 |
 |---|---|---|
-| Codex CLI（OpenAI） | 自动出图 | 否，可手动 |
+| Codex CLI（OpenAI） | 自动出图；`dula-story-design` 默认的盲读评审 | 否，可手动出图，盲读也可换用其他模型命令行 |
 | 火山引擎 Seed-Audio | 配音和音效 | 否，可用自己的音频 |
 
 产品名称和商标归各自所有者所有，提到它们只是为了说明兼容性。

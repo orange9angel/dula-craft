@@ -54,6 +54,13 @@ curl -fsSL https://raw.githubusercontent.com/orange9angel/dula-craft/main/instal
 | `dula-voice` | 配音、环境音和音效（用你自己的火山密钥，可选） |
 | `dula-subtitles` | 双语字幕，角色自动分色 |
 | `dula-title-card` | 水墨标题字卡，纯代码生成 |
+| `dula-story-design` | 故事、片名、节拍表和分镜，由另一个模型盲读把关 |
+| `dula-look-key` | 每个场景先定一张合成定调图，再从它派生背景和画稿，画面才融在一起 |
+| `dula-flat-cinema` | 用平涂形状做光、影、光束、浮尘和灯晕，让角色真正处在场景里 |
+| `dula-action-staging` | 用几张关键画做必杀技和动作高潮：蓄力、释放、冲击帧 |
+| `dula-svg-cel` | 用 SVG 代码画道具、场景、特效和简单角色，不耗出图额度 |
+| `dula-physical-plausibility` | 检查画面里的物体结构和行为是否可信 |
+| `dula-director-pass` | 每版成片以导演视角复看，找出最弱的段落并跟着音乐改好 |
 
 ## 要花钱吗
 

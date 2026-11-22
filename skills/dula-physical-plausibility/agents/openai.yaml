@@ -1,0 +1,3 @@
+interface:
+  display_name: "Physical Plausibility"
+  short_description: "Check that filmed objects are built and behave plausibly"

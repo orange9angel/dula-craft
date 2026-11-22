@@ -31,6 +31,7 @@ This repository doesn't include code from the software below. It's installed sep
 | Pillow | Image processing | MIT-CMU |
 | opencv-python-headless | Image processing | Apache-2.0 (its packages include LGPL FFmpeg libraries) |
 | FFmpeg | Audio and video | LGPL or GPL, depending on your build |
+| Playwright (optional, with its Chromium) | Rendering SVG drawings in `dula-svg-cel` | Apache-2.0 (Chromium: BSD-3-Clause and others) |
 
 If you distribute any of these with your own product, check what their licenses require.
 
@@ -40,7 +41,7 @@ When you use these services, your content goes to the provider and their terms a
 
 | Service | Used for | Required? |
 |---|---|---|
-| Codex CLI (OpenAI) | Generating images automatically | No, you can make images by hand |
+| Codex CLI (OpenAI) | Generating images automatically; the default cold reader in `dula-story-design` | No, you can make images by hand and use any other model CLI for cold reads |
 | Volcano Engine Seed-Audio | Voices and sound effects | No, you can use your own audio |
 
 Product names and trademarks belong to their owners and are mentioned only to describe compatibility.

@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <!-- Painted, hand-drawn look for code-drawn scenes. Copy the <defs> into a scene and wire them
+       as shown at the bottom. All noise is fixed (seeded, no animation): nothing boils between frames. -->
+  <defs>
+    <!-- hand-drawn line: low-frequency displacement, about 2 px on a 1080p plate. More than that
+         bends long ruled lines and weakens the perspective. -->
+    <filter id="wobble" x="-3%" y="-3%" width="106%" height="106%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="11" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- the same for a character group: a different seed, a little less -->
+    <filter id="wobbleFine" x="-3%" y="-3%" width="106%" height="106%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- paint mottling: broad warm blotches, multiplied over the plate -->
+    <filter id="mottle" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="3" seed="3"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0.9 0 0 0 -0.33"/>
+      <feComposite in2="SourceGraphic" operator="in" result="a"/>
+      <feFlood flood-color="#c9905e"/><feComposite in2="a" operator="in"/>
+    </filter>
+    <!-- paper grain: fine speckle, multiplied over the plate -->
+    <filter id="grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="8"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.45  0 0 0 0 0.33  0 0 0 0 0.25  0 0 0 0.55 -0.2"/>
+    </filter>
+    <!-- directional paint texture per material: put filter="url(#woodV)" on the shape itself.
+         V = streaks run down the picture, H = across. wipeH is the pale wipe on a chalkboard. -->
+    <filter id="woodV" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.085 0.004" numOctaves="2" seed="5"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.42  0 0 0 0 0.22  0 0 0 0 0.1  1.5 0 0 0 -0.62"/>
+      <feComposite in2="SourceAlpha" operator="in" result="t"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="t"/></feMerge>
+    </filter>
+    <filter id="woodH" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.085" numOctaves="2" seed="6"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.42  0 0 0 0 0.22  0 0 0 0 0.1  1.5 0 0 0 -0.62"/>
+      <feComposite in2="SourceAlpha" operator="in" result="t"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="t"/></feMerge>
+    </filter>
+    <filter id="brushV" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03 0.0025" numOctaves="2" seed="9"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.62  0 0 0 0 0.38  0 0 0 0 0.22  1.0 0 0 0 -0.5"/>
+      <feComposite in2="SourceAlpha" operator="in" result="t"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="t"/></feMerge>
+    </filter>
+    <filter id="brushH" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0025 0.03" numOctaves="2" seed="12"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.55  0 0 0 0 0.3  0 0 0 0 0.16  1.1 0 0 0 -0.44"/>
+      <feComposite in2="SourceAlpha" operator="in" result="t"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="t"/></feMerge>
+    </filter>
+    <filter id="wipeH" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.003 0.045" numOctaves="2" seed="14"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.62  0 0 0 0 0.8  0 0 0 0 0.7  1.0 0 0 0 -0.42"/>
+      <feComposite in2="SourceAlpha" operator="in" result="t"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="t"/></feMerge>
+    </filter>
+    <filter id="actorLook" x="-6%" y="-6%" width="112%" height="112%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feMorphology in="d" operator="erode" radius="5" result="inner"/>
+      <feOffset in="inner" dx="13" dy="7" result="o1"/>
+      <feComposite in="inner" in2="o1" operator="out" result="lightBand"/>
+      <feFlood flood-color="#fff0c4" flood-opacity=".5"/><feComposite in2="lightBand" operator="in" result="rim"/>
+      <feOffset in="inner" dx="-16" dy="-5" result="o2"/>
+      <feComposite in="inner" in2="o2" operator="out" result="shadeBand"/>
+      <feFlood flood-color="#4d2a52" flood-opacity=".26"/><feComposite in2="shadeBand" operator="in" result="core"/>
+      <feMerge><feMergeNode in="d"/><feMergeNode in="core"/><feMergeNode in="rim"/></feMerge>
+    </filter>
+    <filter id="soft" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="9"/></filter>
+    <linearGradient id="sunWash" x1="0" y1="0.2" x2="1" y2="0.5">
+      <stop offset="0" stop-color="#ffdca0" stop-opacity=".34"/><stop offset=".5" stop-color="#ffdca0" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="farShade" x1="0" y1="1" x2="1" y2="0">
+      <stop offset=".5" stop-color="#5c3f63" stop-opacity="0"/><stop offset="1" stop-color="#5c3f63" stop-opacity=".2"/>
+    </linearGradient>
+    <!-- volume per part: put filter="url(#formShade)" on the <g> of each body part, garment piece and prop
+         (a lit band inside the upper-left edge, a shade band inside the lower-right). sil turns a group
+         into flat shadow colour: draw a copy of one part clipped to where another part shades it. -->
+    <filter id="formShade" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+      <feMorphology in="SourceAlpha" operator="erode" radius="4" result="in"/>
+      <feOffset in="in" dx="-13" dy="-11" result="o"/>
+      <feComposite in="in" in2="o" operator="out" result="band"/>
+      <feFlood flood-color="#55283c" flood-opacity=".2"/><feComposite in2="band" operator="in" result="sh"/>
+      <feOffset in="in" dx="9" dy="8" result="o2"/>
+      <feComposite in="in" in2="o2" operator="out" result="band2"/>
+      <feFlood flood-color="#fff2cc" flood-opacity=".24"/><feComposite in2="band2" operator="in" result="hl"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="sh"/><feMergeNode in="hl"/></feMerge>
+    </filter>
+    <filter id="sil" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feFlood flood-color="#4a2f45" flood-opacity=".34"/><feComposite in2="SourceAlpha" operator="in"/>
+    </filter>
+  </defs>
+
+  <!-- 1. the plate, drawn 40 px past every stage edge so displaced edges never show the background -->
+  <g id="plate" filter="url(#wobble)">
+    <rect x="-40" y="-40" width="2000" height="1160" fill="#ecc6a5"/>
+  </g>
+  <!-- 2. light washes, then texture, over the plate only and below the characters.
+       With per-material streak filters on the shapes, keep the cloud mottle weak (.3). -->
+  <rect width="1920" height="1080" fill="url(#sunWash)"/>
+  <rect width="1920" height="1080" fill="url(#farShade)"/>
+  <rect width="1920" height="1080" filter="url(#mottle)" opacity=".3" style="mix-blend-mode:multiply"/>
+  <rect width="1920" height="1080" filter="url(#grain)" style="mix-blend-mode:multiply"/>
+  <!-- 3. each character: the mover wrapper stays clean, the filter goes on the inner group.
+       actorLook = line wobble + warm rim on the light side + core shade on the far side, both kept
+       inside the outline (the bands are cut from an eroded copy). Flip the offsets for light from the right.
+       Cast shadow: a blurred ellipse on the plate, pushed away from the light. -->
+  <ellipse cx="1046" cy="1016" rx="330" ry="24" fill="#a8704c" opacity=".75" filter="url(#soft)"/>
+  <g id="actor"><g transform="translate(554 146) scale(0.72)" filter="url(#actorLook)">
+    <circle cx="640" cy="400" r="200" fill="#cd8fc1" stroke="#3b1e1c" stroke-width="5.5"/>
+  </g></g>
+</svg>
