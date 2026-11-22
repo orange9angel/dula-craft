@@ -25,6 +25,7 @@ Create `subs.json`. You write the translation yourself:
 ```
 
 - `text` is the main line, and `translation` is the smaller second line. Leave out `translation` for one language.
+- `speaker` is optional. Lines without one, such as song lyrics or narration, share one style.
 - Each `speaker` gets a color automatically, in order of appearance. For video sites watched on phones, or busy pictures, add `--plain`: white text with a solid black outline for everyone.
 - The subtitle canvas matches the video's frame size, so 4:3 and vertical videos keep the right size and position. Without `--video`, give `--size 1440x1080`. With one language, the line sits low at the bottom; with a translation, it moves up to make room.
 - Short lines get shorter fades automatically, so they don't stay faint.
@@ -41,7 +42,9 @@ Create `subs.json`. You write the translation yourself:
 ## Watch out for
 
 - Burn subtitles only onto a clean video. Burning onto a video that already has them gives you two sets.
-- Leave wordless screams, songs and end credits without subtitles.
+- In a story film, leave wordless screams, background songs and end credits without subtitles. A music video is different: the lyrics are the subtitles.
+- For a music video, choose fonts that match the picture (a soft brush or serif face for a painterly film) rather than the default sans. Keep the font files in a folder and burn with `subtitles=subs.ass:fontsdir=fonts`; the ffmpeg log line `fontselect: (Name, ...) -> File` shows which font was really used.
+- A variable font registers under its default instance's name (often "Light"), so a style that names the family can silently fall back to Arial. Cut a static weight with `fontTools.varLib.instancer`, give it its own family name, and use that name.
 - Keep position, size and color the same across a series.
 - When checking burned subtitles, put `-ss` after `-i`. Putting it first resets the subtitle timeline, so they look missing.
 - Before handing over, look at a few frames to confirm subtitles appear and show no empty boxes.

@@ -79,6 +79,7 @@ def build_ass(doc: dict, cn_font: str, width: int = 1280, height: int = 720, pla
     project = doc.get("project", "")
     speakers: list[str] = []
     for ev in doc["events"]:
+        ev.setdefault("speaker", "")  # lyrics and narration have no speaker: one shared style
         if ev["speaker"] not in speakers:
             speakers.append(ev["speaker"])
 
