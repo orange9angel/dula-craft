@@ -17,7 +17,8 @@ Talk to the person in their language. Production text (titles, lyrics, dialogue)
    should feel, the lead's want, obstacle, stakes, clock and the device (shown and said in the first ~40 s). Then build
    with that genre's toolkit: comedy as setup / escalation / punch units with plants and payoffs, drama with an
    established normal, a visible time line, atmosphere and rising stakes. Films of 8 minutes or more use the four-act
-   plan there. Series episodes go through every step too; an episode must stand alone for a first-time viewer.
+   plan there, and comedy episodes of 7-10 minutes follow the [episode method](references/episode-method.md): two
+   people with competing wants, the game of the device, consequence cards, a timed clock and its failure tests. Series episodes go through every step too; an episode must stand alone for a first-time viewer.
 1. **Constraints.** Collect the person's standing preferences (settings, jobs or themes they exclude, audience age,
    tone) from their notes or by asking once. Write the ones that apply at the top of `story.md`.
 2. **Reference split.** If the person cites an earlier film or an outside work, write two lists in `story.md`:
