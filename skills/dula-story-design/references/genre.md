@@ -22,7 +22,9 @@ If any field is empty, the story will read as "flat, I don't know what they are 
 
 - **Every gag is a three-part unit**: setup (plant the expectation), escalation (repeat with a twist, usually three
   times), punch (the fourth beat breaks the pattern). Write gags as units, not as single funny images.
-- **Comic persona**: the lead has one clear comic flaw or rule (too polite, too literal, always half a beat late).
+- **Comic persona**: the lead has one clear comic flaw or rule (too literal, overconfident, always half a beat late).
+  A virtue played for laughs (politeness, patience, sharing) reads as a lesson, not a joke; audiences tune out
+  when good behaviour is the gag or is rewarded as the point.
   Every gag comes out of it. Side characters react in character (the straight man, the one who escalates).
 - **Plant and pay off**: each act plants one object or line that returns later as a punch (callback). Map them:
   plant -> where it returns. A plant with no payoff is cut; a payoff with no plant is unearned.
