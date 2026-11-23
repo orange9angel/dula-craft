@@ -18,6 +18,12 @@ genre's tools. Write the decision at the top of `story.md`.
 
 If any field is empty, the story will read as "flat, I don't know what they are doing". Fix the card first.
 
+**The device must develop.** A world rule that stays the same from start to end is a gimmick decorating the plot,
+and viewers lose interest once they have seen it once. Use one simple rule per episode and let it drive the events:
+its consequences escalate, it is tested, and at the turn it works the other way (or the thing it produces wants
+something of its own and becomes a second character). Several extra rules added to patch logic gaps confuse first-time
+viewers; simplify the premise instead.
+
 ## Plot first, then gags
 
 The plot is the spine: the lead's want, what blocks it, how it gets closer or further, the turn, the end. Write it
