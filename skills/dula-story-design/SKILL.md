@@ -13,6 +13,11 @@ Talk to the person in their language. Production text (titles, lyrics, dialogue)
 
 ## Gate order
 
+0. **Genre card.** Before anything else, fill the [genre card](references/genre.md): genre and form, what the viewer
+   should feel, the lead's want, obstacle, stakes, clock and the device (shown and said in the first ~40 s). Then build
+   with that genre's toolkit: comedy as setup / escalation / punch units with plants and payoffs, drama with an
+   established normal, a visible time line, atmosphere and rising stakes. Films of 8 minutes or more use the four-act
+   plan there. Series episodes go through every step too; an episode must stand alone for a first-time viewer.
 1. **Constraints.** Collect the person's standing preferences (settings, jobs or themes they exclude, audience age,
    tone) from their notes or by asking once. Write the ones that apply at the top of `story.md`.
 2. **Reference split.** If the person cites an earlier film or an outside work, write two lists in `story.md`:
@@ -29,8 +34,10 @@ Talk to the person in their language. Production text (titles, lyrics, dialogue)
      device: a prop, a rule of the world, or the form of the reveal.
 4. **Cold read.** Run `python scripts/blind_pitch.py story/pitches.md --ledger PAST_WORKS.md --lang <language>` on the
    survivors. A second model reads each pitch cold and reports the ending it predicts after the hook, what feels
-   familiar, and what it would remember a day later. A premise whose turn it predicts, or that it calls familiar, is
-   rewritten or dropped. The report is mediated evidence; overrule it only with a written reason.
+   familiar, and what it would remember a day later. Add the genre's cold-read question from the genre card (comedy:
+   where did you laugh, get ahead of the joke, get bored; drama: what did the lead want, when did you worry). A premise
+   whose turn it predicts, that it calls familiar, or whose want and stakes it cannot state, is rewritten or dropped.
+   After each render, repeat the read on the actual cut (frames plus subtitles) as a first-time viewer. The report is mediated evidence; overrule it only with a written reason.
 5. **Title.** Draft at least eight titles and pick by the [title rules](references/craft.md#titles): a concrete image or
    object from the story, curiosity without explaining the concept, easy to say or sing, no overlap with earlier
    titles' key words. For a series, use the series name plus an episode title.
