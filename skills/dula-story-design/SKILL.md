@@ -48,7 +48,9 @@ Talk to the person in their language. Production text (titles, lyrics, dialogue)
    cause visible on screen, emotion, and music section. Every effect beat names the frame that shows its cause
    (cause before effect). For a music video, map beats to song sections first (intro / verse / pre / chorus / bridge /
    final chorus / coda) and place the turn and the reveal on musical events, not between them.
-7b. **Writers' room** (comedy): for every gag beat write three alternative gags from the comic engine, have the cold
+7a. **Plot spine check**: list the events in order and, for each, how it changes the lead's position toward the want.
+   Any beat that changes nothing (a trait showcase, a repeated gag) is cut or folded into a beat that does.
+7b. **Writers' room** (comedy), only after the spine holds: for every gag beat write three alternative gags from the comic engine, have the cold
    reader pick the one it would laugh at and say why, keep the winner. Ask the reader directly: "does any gag or
    motif feel like a lesson?" - preachy material is cut, whatever its craft.
 7c. **Dialogue pass and table read**: write every spoken line with speaker, intent and subtitle translation; read

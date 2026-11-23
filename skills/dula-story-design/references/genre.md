@@ -18,6 +18,13 @@ genre's tools. Write the decision at the top of `story.md`.
 
 If any field is empty, the story will read as "flat, I don't know what they are doing". Fix the card first.
 
+## Plot first, then gags
+
+The plot is the spine: the lead's want, what blocks it, how it gets closer or further, the turn, the end. Write it
+first as a list of events that each change the situation. Gags and character traits live inside those events and
+serve them; a scene that only shows a trait (politeness, shyness) or repeats a gag without moving the want is cut.
+Ordinary behaviour (a quick "after you") stays ordinary - it is not set up, repeated or paid off as the story.
+
 ## Comedy toolkit (set up, turn, punch)
 
 - **Every gag is a three-part unit**: setup (plant the expectation), escalation (repeat with a twist, usually three
