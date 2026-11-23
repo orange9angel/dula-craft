@@ -66,6 +66,8 @@ Each act ends on a question the viewer wants answered. An act that only "continu
 
 ## Dialogue
 
+- No dead holds: in a dialogue scene, a visible reaction (a laugh, delight, surprise) held longer than ~2 s gets a
+  short line or sound, and a change of topic is preceded by a change of expression that motivates it.
 - Lines reveal character or advance the want; small talk and announcements ("today I will...") are cut.
 - Exposition only through a character who has a reason to ask (a curious child, a newcomer).
 - Read every line aloud in the character's voice: would a real person of that age say it, in that situation?
