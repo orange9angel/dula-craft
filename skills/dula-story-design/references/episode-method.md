@@ -57,8 +57,8 @@ the timings are our own drafting targets.
 - Dan Harmon's story circle: https://www.adultswim.com/videos/rick-and-morty/the-story-circle
 - Early SpongeBob writers on shaping an incident and pacing in the animatic: https://hogansalley.squarespace.com/blog/the-oral-history-of-spongebob-squarepants
 - Povenmire and Marsh on interlocking plots in eleven minutes: https://www.awn.com/animationworld/swampy-dan-emerges-phineas-and-ferb
-- Doug Sweetland on the opening of a five-minute short: https://www.awn.com/animationworld/presto-change-o-pixar
+- Doug Sweetland on the opening of a five-minute studio short (Animation World Network interview, awn.com)
 - Joe Brumm on finding material in real family life: https://www.firstfiveyears.org.au/early-learning/bluey-childrens-favourite-blue-heeler
 - Richard Starzak and Mark Burton on stories readable in drawings: https://www.skwigly.co.uk/shaun-sheep-movie-interview-directors-richard-starzak-mark-burton/
 - Peter K. Hirsch and Susan Kim on writing short episodes: https://www.wgaeast.org/wp-content/uploads/sites/4/2021/10/OW32-Mazzarino-Stiles-Hirsch-Kim.pdf
-- Stewart Lee / Richard Herring-era notes on comic patterns: https://www.theguardian.com/books/2008/sep/22/comedy4
+- A Guardian article on comedy writing, comic patterns and pauses: https://www.theguardian.com/books/2008/sep/22/comedy4
