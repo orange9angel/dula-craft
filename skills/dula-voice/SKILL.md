@@ -69,6 +69,11 @@ Generate one thing at a time. Don't ask one prompt for dialogue, effects and mus
 - Things you can do yourself: check that lengths make sense (5 seconds for a short line is a problem). If a transcription tool such as Whisper is available, compare its text against the script. Very quiet words may be missing, which is a sign to redo them.
 - `delivery` is a request, not an exact control. Pause lengths in particular aren't reliable, so shorten the line or regenerate if the pacing is wrong.
 - The same prompt gives a different result each time, so regenerate on errors.
+- Clean edits, or the film pops on headphones: give every placed clip a short fade in and out (5-10 ms for speech
+  and effects, 20-30 ms for ambience and music joins), cut near zero crossings, and remove the short noise bursts
+  some takes carry after the last word. Overlapping clips must not clip; keep the true peak at -1 dBTP or lower.
+  Then scan the final mix for sudden sample jumps at every edit point, and compare the encoded file with the
+  master around anything flagged.
 
 ## Common problems
 
