@@ -72,6 +72,9 @@ its continuous move.
 
 - No new plate set before its location key is approved. Do not reuse the key for a
   different location; make one per place.
+- Before splitting work across parallel workers (one per act or sequence), make the master plate of every
+  location that appears in more than one part, and give workers those plates read-only. Workers drawing the same
+  place independently produce different buildings, doors and walls that no longer match across the cut.
 - Never zoom a plate to fake a close shot. Paint the closer camera.
 - A plate for a travel shot is ordered for the drawings you have: with side-on character drawings, ask for the road,
   path or track to run straight across the frame. A road that curves away or recedes toward a vanishing point needs
