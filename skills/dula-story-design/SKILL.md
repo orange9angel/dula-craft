@@ -48,6 +48,16 @@ Talk to the person in their language. Production text (titles, lyrics, dialogue)
    cause visible on screen, emotion, and music section. Every effect beat names the frame that shows its cause
    (cause before effect). For a music video, map beats to song sections first (intro / verse / pre / chorus / bridge /
    final chorus / coda) and place the turn and the reveal on musical events, not between them.
+7b. **Writers' room** (comedy): for every gag beat write three alternative gags from the comic engine, have the cold
+   reader pick the one it would laugh at and say why, keep the winner. Ask the reader directly: "does any gag or
+   motif feel like a lesson?" - preachy material is cut, whatever its craft.
+7c. **Dialogue pass and table read**: write every spoken line with speaker, intent and subtitle translation; read
+   each aloud in character (no announcing, no explaining, exposition only through a character with a reason to ask).
+   For films with dialogue, generate a cheap table read (one quick take per line, any voice) and listen through it
+   with an audio reviewer before any drawing: stiff, unnatural or confusing lines are rewritten now, when it is cheap.
+7d. **Animatic** (films over ~3 minutes): storyboard stills timed to the table read, music cue points marked, then a
+   first-time-viewer read of the animatic (want, stakes, deadline, rule, laughs, boredom). Production starts only
+   when that read comes back right.
 8. **Storyboard** `story/storyboard.md`: shot id, duration, framing, picture, what moves and what it causes, sound and
    music, transition. Then cold-read the storyboard (`--mode board`) for "what happened and why" before any image is
    generated; mismatches with the beat sheet are defects.

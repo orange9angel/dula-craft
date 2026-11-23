@@ -18,3 +18,17 @@
 11. Ground and sources: every figure's feet stand in the plate's walkable band; every painted source of motion (steam, flame,
     water, leaves) actually moves.
 12. Lyrics and titles: font matches the film's look (checked in the ffmpeg fontselect log), readable on the brightest shot.
+
+## Story episodes (add to the above)
+
+13. Standalone: a first-time viewer states the lead's want, stakes, deadline and the world rule from the cut alone.
+14. Laughs: a laugh or new comic image every 10-15 s; the stranger's "bored" and "got ahead" times are fixed or cut.
+15. No preaching: no gag or running motif built on a virtue; nothing is framed as good behaviour rewarded.
+16. Dialogue: every line sounds like that character in that moment (no announcing, no explaining the joke); no dead
+    hold over ~2 s on a visible reaction; a change of topic is motivated by a change of expression.
+17. Voices: one dialogue level for every line (+-1 LU); no phrase cut into pieces; repeats/echoes clearly from their
+    source and readable on one hearing.
+18. Music placement: only at cue points; never under speech; no ducking; no genre the person rejected.
+19. Background sound: felt, not noticed - footsteps varied and low, birds sparse and distant, no audible loop, one
+    ambience level per location, no unmotivated level jump (measure loudness per stem across the whole film), no pops.
+20. Continuity across parts: recurring locations, props and who-is-where match at every join.

@@ -1,6 +1,6 @@
 ﻿---
 name: dula-director-pass
-description: Act as the film's director after every render - watch the cut as a whole, rank its weakest moments, invent picture/music devices that lift them (music-driven motion, time-stop on silence, reflections, double exposure, static-in-flow, beat-snapped cuts), implement the best few, re-render and verify. Use after each full draft of a short film or music video, when the person asks you to direct, asks how to make it better, more artistic or more in sync with the song, or before sending any version.
+description: Act as the film's director after every render - watch the cut as a whole, rank its weakest moments, invent picture/music devices that lift them (music-driven motion, time-stop on silence, reflections, double exposure, static-in-flow, beat-snapped cuts), implement the best few, re-render and verify. For story episodes it also runs a first-time-viewer read with sound, a sound-direction pass (music placement, ambience, Foley, levels), a comedy audit and a continuity check across separately made parts. Use after each full draft of a short film, story episode or music video, when the person asks you to direct, asks how to make it better, more artistic or more in sync with the song, or before sending any version.
 ---
 
 # Director pass
@@ -25,6 +25,25 @@ and keep the story itself out of chat unless they ask for it.
 6. **Report briefly:** what changed, as a viewer would see it, what is still weak, and the file. Log decisions in the
    film's notes, with the person's own words when they reject or praise something.
 7. **Learn:** verdicts that generalise go into this skill's references or your project memory.
+
+## Story episodes (dialogue films)
+
+A story episode is judged like a cartoon episode, not like a music video. On top of the loop above:
+
+1. **Watch with sound, as a stranger.** Run a first-time-viewer read of the actual cut (frames every 2-3 s plus the
+   full subtitle file, by a second model that knows nothing of the plan): what the lead wants, the stakes, the
+   deadline, the world rule, where it laughed, where it got ahead of a joke, where it got bored. Separately run an
+   audio-only review of three or four excerpts (an opening, a busy scene, a quiet scene, the ending). Compare both
+   with your plan; every mismatch is a defect.
+2. **Sound direction, not just sound.** Score dialogue scenes with ambience and Foley, music only at its cue points
+   (opening, act ends, transitions, one or two emotional beats), never under speech, so nothing ducks. Background
+   sound is felt, not noticed: footsteps and birds sit low and vary, no loop is audible, one ambience level per
+   location, every line at one dialogue level, no level jump the story does not motivate, no pops at edits.
+3. **Comedy audit.** For each gag: setup visible, escalation, punch on the last beat, a reaction shot held a beat.
+   A gag that relies on a virtue (politeness, patience) reads as a lesson; replace it with one from the comic engine.
+4. **Continuity across parts.** When parts were made separately, check every recurring place, prop and character
+   presence across the joins (the same building, the same door, who is on the bus, what each one carries).
+5. **Score with the story checklist** (items 13-20 in `references/checklist.md`) and fix before sending.
 
 ## Rules that held across films
 
