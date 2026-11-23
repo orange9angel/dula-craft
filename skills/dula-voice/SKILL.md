@@ -63,6 +63,12 @@ python <this folder>/scripts/speak.py --sound "A quiet old room, a bird far away
 
 Generate one thing at a time. Don't ask one prompt for dialogue, effects and music together, or you can't adjust levels separately and the mouths will be wrong.
 
+Footsteps and small Foley sit under the scene unless the sound is the joke: vary every step (several samples,
+small level and timing changes), match the surface and the character's size, and keep them well below dialogue.
+Identical, evenly spaced, loud steps sound deliberate. Keep one ambience level per location and smooth it across
+cuts; when parts of a film are mixed separately, measure the loudness of each stem over the whole film and remove
+level jumps that the story does not motivate.
+
 ## Check the result
 
 - Listen if you can. If you can't, tell the person "this audio hasn't been checked by ear".
