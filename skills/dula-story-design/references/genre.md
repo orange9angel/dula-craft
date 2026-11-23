@@ -56,6 +56,14 @@ If any field is empty, the story will read as "flat, I don't know what they are 
 
 Each act ends on a question the viewer wants answered. An act that only "continues the trip" is a defect.
 
+## Music placement (story episodes are not musicals)
+
+- Dialogue scenes run on continuous ambience and Foley, not on a score. A score under every line makes the film
+  feel like a musical, and ducking it under speech makes it pump audibly.
+- Place music only where it has a job: the opening, a transition or act end (a short sting), and one or two
+  emotional beats with no dialogue on top. Each cue starts and ends on purpose.
+- Mark the cue points in the beat sheet (music section column) before any music is generated.
+
 ## Dialogue
 
 - Lines reveal character or advance the want; small talk and announcements ("today I will...") are cut.
