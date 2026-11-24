@@ -78,6 +78,29 @@ def trim(path):
         temp.unlink(missing_ok=True)
 
 
+def inspect_line(out, raw=None):
+    """Keep the original for comparison. Automatically shorten only a clean take."""
+    from line_hygiene import analyze, fix_copy, read_wav
+
+    samples, rate = read_wav(raw or out)
+    report = analyze(samples, rate)
+    if raw:
+        report["raw_file"] = str(raw)
+        raw.with_suffix(".hygiene.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        if report["flags"]:
+            shutil.copyfile(raw, out)
+        else:
+            fix_copy(samples, rate, report["keep_samples"], out, pcm16=True)
+            report["output_check"] = analyze(*read_wav(out))
+    path = out.with_suffix(".hygiene.json")
+    path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    issues = report["flags"] or report.get("output_check", {}).get("flags", [])
+    if issues:
+        kinds = ", ".join(sorted({flag["kind"] for flag in issues}))
+        print(f"Review isolated line {out} ({kinds}). Details in {path}")
+    return not issues
+
+
 def prompt_for(line, voice, has_reference):
     # The framing stays in Chinese because that is the form tested against this service.
     # Voice descriptions and the line itself can be in any language.
@@ -88,6 +111,7 @@ def prompt_for(line, voice, has_reference):
         parts.append(f"声音：{voice['desc']}。")
     if line.get("delivery"):
         parts.append(f"这一句的念法：{line['delivery']}。")
+    parts.append("台词前后没有清嗓、咳嗽或呼吸声。")
     parts.append(f"语言：{voice.get('lang', '和台词原文相同的语言')}。")
     # Spelling the text out stops ellipses and pauses being re-read as other words.
     parts.append(f"台词就是『{line['text']}』，一字不改，念完就结束。")
@@ -127,6 +151,8 @@ def main():
     film = json.loads(Path("config/film.json").read_text(encoding="utf-8"))
     if any(line["text"] == "Write the line here." for line in film["lines"]):
         sys.exit("config/film.json still has the placeholder line. Write the real lines first. Nothing was spent.")
+    if not args.dry_run:
+        _bootstrap.ensure("numpy", "scipy")
     voices = film.get("voices", {})
     first = {}
     total = 0.0
@@ -140,7 +166,11 @@ def main():
             reference_path = first.get(who) or (Path(voice["reference"]) if voice.get("reference") else None)
         prompt = prompt_for(line, voice, bool(voice.get("speaker") or reference_path))
         tag = hashlib.sha256(json.dumps([prompt, voice.get("speaker")], ensure_ascii=False).encode()).hexdigest()[:16]
-        current = record.exists() and json.loads(record.read_text(encoding="utf-8")).get("tag") == tag
+        # Keep previously generated performances cached when only the default
+        # clean-edges instruction changed. Explicit --only still requests a new take.
+        legacy_prompt = prompt.replace("台词前后没有清嗓、咳嗽或呼吸声。", "", 1)
+        legacy_tag = hashlib.sha256(json.dumps([legacy_prompt, voice.get("speaker")], ensure_ascii=False).encode()).hexdigest()[:16]
+        current = record.exists() and json.loads(record.read_text(encoding="utf-8")).get("tag") in (tag, legacy_tag)
         wanted = line["id"] in args.only if args.only else not (out.exists() and current)
 
         if args.dry_run:
@@ -153,15 +183,22 @@ def main():
             if reference_path:
                 references = [{"audio_data": base64.b64encode(reference_path.read_bytes()).decode("ascii")}]
             try:
-                total += generate(key, prompt, references, out)
+                raw = out.parent / "takes" / out.name
+                total += generate(key, prompt, references, raw)
             except ServiceError as error:
                 sys.exit(f"[ERROR] {line['id']}: {error}")
-            trim(out)
+            clean = inspect_line(out, raw)
             record.write_text(json.dumps({"tag": tag, "text": line["text"], "provider": MODEL,
                                           "reference": str(reference_path) if reference_path else voice.get("speaker")},
                                          ensure_ascii=False, indent=1), encoding="utf-8")
-        else:
+        elif not args.only or line["id"] in args.only:
             print(f"Already done: {out}")
+            clean = inspect_line(out)
+        else:
+            clean = True
+        if not clean:
+            print("Check the flagged span and save the reviewed edit before continuing.")
+            return 1
         if out.exists():
             first.setdefault(who, out)
     if not args.dry_run:

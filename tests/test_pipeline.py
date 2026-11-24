@@ -48,8 +48,8 @@ def draw_cel(path, mouth=0, colour=(240, 170, 90)):
 
 def tone(path, seconds=1.2, sr=48000):
     t = np.arange(int(seconds * sr)) / sr
-    # Syllable-like bursts, so the mouth has something to follow.
-    y = np.sin(2 * np.pi * 220 * t) * (np.sin(2 * np.pi * 3 * t) > 0) * 0.5
+    # Use whole periods between gates so the mock voice has no edit clicks.
+    y = np.sin(2 * np.pi * 216 * t) * (np.sin(2 * np.pi * 3 * t) > 0) * 0.5
     path.parent.mkdir(parents=True, exist_ok=True)
     with wave.open(str(path), "wb") as f:
         f.setnchannels(1)
@@ -395,6 +395,9 @@ class Voice(unittest.TestCase):
         for record in (self.film / "audio/voice").glob("*.json"):
             self.assertNotIn(saved, record.read_text(encoding="utf-8"))
 
+        self.assertTrue((self.film / "audio/voice/takes/l1.wav").is_file())
+        report = json.loads((self.film / "audio/voice/l1.hygiene.json").read_text())
+        self.assertEqual(report["output_check"]["flags"], [])
         # The first line carries the voice for the rest.
         first, second = FakeService.requests[0][1], FakeService.requests[1][1]
         self.assertNotIn("references", first)

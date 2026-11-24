@@ -27,15 +27,15 @@ Add `voices` at the top level of `config/film.json`:
 
 ```json
 "voices": {
-  "mochi": {"desc": "A boy of about eight, bright and lively, quick pace, light breath"},
-  "gran": {"desc": "A woman of seventy, warm and slightly husky, slow, very clear diction"}
+  "mochi": {"desc": "A boy of about eight, bright and lively, quick pace, clear consonants"},
+  "gran": {"desc": "A woman of seventy, warm, low register, measured pace, clear diction"}
 }
 ```
 
 Lines can have a `delivery`:
 
 ```json
-{"id": "l03", "who": "mochi", "text": "R-really?", "delivery": "Surprised and delighted, a tremble on the first word, rising at the end"}
+{"id": "l03", "who": "mochi", "text": "R-really?", "delivery": "Surprised and delighted, a quick lift on the first word, rising at the end"}
 ```
 
 Optional voice fields: `lang` sets the language (by default, the language of the line); `speaker` sets an official Volcano voice ID; `reference` points to reference audio the person has the rights to use.
@@ -52,6 +52,19 @@ python <this folder>/scripts/speak.py
 Each character's first line becomes the voice reference for their later lines, so **listen to the first line first**. If it's not right, change `desc` and redo it. After changing a first line, use `--only` to redo that character's later lines so they follow the new voice.
 
 When you change a line or a voice and run it again, only what changed is regenerated.
+
+## Line hygiene
+
+Describe age through timbre, pitch and pace, such as an older, warm, low voice with measured pacing. Reserve breathy, trembling, hoarse or raspy delivery for characters who need it. The dialogue prompt asks for clean edges with no throat clearing, coughing or breathing before or after the line.
+
+Check **every isolated line before placing it**, including shouts and recordings from other tools. `speak.py` checks new raw takes and keeps them in `takes/` beside the working clips. Listen to each placed edit on its own, or have an audio model review that single file for breath, throat noise and crackle. Check the scene mix afterward. Regenerate with the same speaker and acting direction when unwanted noise overlaps the words.
+
+```bash
+python <this folder>/scripts/line_hygiene.py take.wav --report check.json
+python <this folder>/scripts/line_hygiene.py take.wav --words words.json --fix edited.wav --report edit.json
+```
+
+Word timings are optional, in seconds from the start of the input, e.g. `[{"start":0.32,"end":0.71}]`. Without timings the script estimates boundaries from voicing and energy. Check quiet opening words, fricatives and expressive cries against the recording before using a cut. The edited copy keeps 40 ms of lead and up to 250 ms of natural decay with 8 ms fades. The command exits nonzero on any flag, including raw flags removed by the edit. Inspect `output_check` and `regenerate_if_confirmed`, then scan and listen to the exact file you will place.
 
 ## Ambience and sound effects
 
@@ -88,4 +101,5 @@ level jumps that the story does not motivate.
 | `Key rejected, or Audio Generation 1.0 is not enabled` | Check the service is enabled. The key must come from the speech console, and Ark keys don't work |
 | A word is misread | Regenerate, or reword the line |
 | Lines don't sound like one person | Make sure the first line is right, then redo the later ones with `--only`, or set a `speaker` |
+| Breath or crackle around a line | Check the isolated raw take and edited copy. Trim a separate edge sound and regenerate noise that overlaps words |
 | The end of a line is cut off | Ask for a slower `delivery`, or regenerate |
