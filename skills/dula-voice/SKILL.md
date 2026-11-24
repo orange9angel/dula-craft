@@ -51,6 +51,12 @@ python <this folder>/scripts/speak.py
 
 Each character's first line becomes the voice reference for their later lines, so **listen to the first line first**. If it's not right, change `desc` and redo it. After changing a first line, use `--only` to redo that character's later lines so they follow the new voice.
 
+Before casting each character, play an isolated take to a listener or an audio
+model. Ask what gender and age the performance suggests without revealing the
+intended role. Record the impression and choose a take that matches the character
+and sounds natural in the scene. An unclear or conflicting impression calls for
+another audition. Catalog labels and pitch alone cannot establish this match.
+
 When you change a line or a voice and run it again, only what changed is regenerated.
 
 ## Line hygiene
@@ -81,6 +87,21 @@ small level and timing changes), match the surface and the character's size, and
 Identical, evenly spaced, loud steps sound deliberate. Keep one ambience level per location and smooth it across
 cuts; when parts of a film are mixed separately, measure the loudness of each stem over the whole film and remove
 level jumps that the story does not motivate.
+
+For a quiet story beat, keep a continuous room-tone or outdoor ambience floor.
+Fade individual activity layers down or back up over at least one second as
+their sources leave or return. Gating the whole ambience stem to silence makes
+the location disappear. Check the isolated stem for drops greater than 6 dB
+within one second and listen around each flagged time. Use `--cut SECONDS`
+only for a picture cut that actually motivates a change of sound environment.
+
+```bash
+python <this folder>/scripts/ambience_check.py audio/stems/ambience.wav --report ambience.json
+```
+
+The command measures 200 ms RMS windows every 50 ms and compares levels up to
+one second apart within each scene. It exits nonzero on a flagged drop or a
+silent window. The report also gives the largest rise for checking a return.
 
 ## Check the result
 
