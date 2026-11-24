@@ -7,6 +7,8 @@ description: Review the visible construction and behavior of objects in flat ani
 
 Use before generating art for a shot whose meaning depends on an object's construction or operation, and again when reviewing the encode. Talk to the person in their language.
 
+For each shot, record where every mover comes from, what supports it along its path, and where it exits or comes to rest. Measure the opening and usable surface on the background. Inspect the first visible contact, facing and scale in the encoded shot, then check the resting position against fixed landmarks after the cut.
+
 1. Name the object, its state and the action the audience should infer. Describe the minimum causal chain in ordinary words: what supports the load, what joins the parts, what drives or permits the motion, and what visible consequence follows. For unfamiliar mechanisms inspect a reliable reference before drawing. Record unresolved assumptions.
 2. At the planned camera height and angle, trace the silhouette and list each essential interface as visible, behind a named foreground surface, inside a housing, or outside a named frame edge. For concealed parts identify the expected projected region and what covers it. A blank gap, unrelated shadow or decorative trim cannot establish concealment. Use actual dimensions or a reference when the shot depends on them.
 3. Choose the art and layer order before generating: body, moving assembly, material/contact response, foreground occluder. Draw the functional parts whenever a later camera move or cut reveals them. Preserve the mechanism across shots. Add a real occluder only when it belongs to the location and respects the subject's path.

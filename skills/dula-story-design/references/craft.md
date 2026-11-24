@@ -23,6 +23,10 @@
 Each needs: a hook inside 10 s, a turn the viewer cannot predict from the hook, and an ending image that pays off the
 hook (same object, same place, changed meaning).
 
+Play a callback once for a fresh viewer and ask which earlier words they recognized.
+If they need a reminder, try keeping the phrase intact and changing who says it
+or whom it describes. The new situation can supply the second meaning.
+
 ## Music video specifics
 
 - One emotional arc, not a plot summary; 3-5 beats in total.
@@ -37,6 +41,11 @@ the underdog wins the contest; the misunderstood monster; the letter never sent;
 as the climax image; a colour word as the title of a colour-led film.
 
 ## Titles
+
+For a series, try the proposed name above several different episode summaries.
+If it describes only the first incident, keep it for that episode. A recurring
+place, pair of characters or lead with a distinctive epithet can carry the
+series.
 
 Good titles name a concrete thing from the story or a phrase a character could say (invented examples: "The
 Umbrella Thief", "Seven Minutes Late", "A Song for the Lighthouse"). Rules:
