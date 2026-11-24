@@ -1,4 +1,4 @@
-﻿---
+---
 name: dula-director-pass
 description: Act as the film's director after every render - watch the cut as a whole, rank its weakest moments, invent picture/music devices that lift them (music-driven motion, time-stop on silence, reflections, double exposure, static-in-flow, beat-snapped cuts), implement the best few, re-render and verify. For story episodes it also runs a first-time-viewer read with sound, a sound-direction pass (music placement, ambience, Foley, levels), a comedy audit and a continuity check across separately made parts. Use after each full draft of a short film, story episode or music video, when the person asks you to direct, asks how to make it better, more artistic or more in sync with the song, or before sending any version.
 ---
@@ -32,13 +32,16 @@ A story episode is judged like a cartoon episode, not like a music video. On top
 
 1. **Watch with sound, as a stranger.** Run a first-time-viewer read of the actual cut (frames every 2-3 s plus the
    full subtitle file, by a second model that knows nothing of the plan): what the lead wants, the stakes, the
-   deadline, the world rule, where it laughed, where it got ahead of a joke, where it got bored. Separately run an
-   audio-only review of three or four excerpts (an opening, a busy scene, a quiet scene, the ending). Compare both
-   with your plan; every mismatch is a defect.
-2. **Sound direction, not just sound.** Score dialogue scenes with ambience and Foley, music only at its cue points
-   (opening, act ends, transitions, one or two emotional beats), never under speech, so nothing ducks. Background
-   sound is felt, not noticed: footsteps and birds sit low and vary, no loop is audible, one ambience level per
-   location, every line at one dialogue level, no level jump the story does not motivate, no pops at edits.
+   deadline, the world rule, where it laughed, where it got ahead of a joke, where it got bored. Compare the
+   viewer's account with the story plan and investigate each mismatch.
+2. **Review the sound direction of every scene.** Require its pre-production sound script and a timestamped
+   listening review of the complete decoded scene, including its joins. Ask a listener or an audio model
+   about continuity, depth, thin or pasted-in sounds and the amount of music. Compare the response with the
+   planned silence, perspective, material cues and score entrances and releases. Check voice clarity, loops,
+   level jumps and pops. Compare loudness range, bed/dialogue ratio and spectral tilt with a comparable scene
+   from the last accepted mix. Record who listened, repair unintended differences and listen through the revised
+   scene. Keep the pass open while the script or whole-scene listening evidence is missing.
+   Use the [sound script and mix review](../dula-voice/references/sound-design.md).
 3. **Comedy audit.** For each gag: setup visible, escalation, punch on the last beat, a reaction shot held a beat.
    A gag that relies on a virtue (politeness, patience) reads as a lesson; replace it with one from the comic engine.
 4. **Continuity across parts.** When parts were made separately, check every recurring place, prop and character

@@ -26,9 +26,11 @@
 15. No preaching: no gag or running motif built on a virtue; nothing is framed as good behaviour rewarded.
 16. Dialogue: every line sounds like that character in that moment (no announcing, no explaining the joke); no dead
     hold over ~2 s on a visible reaction; a change of topic is motivated by a change of expression.
-17. Voices: one dialogue level for every line (+-1 LU); no phrase cut into pieces; repeats/echoes clearly from their
-    source and readable on one hearing.
-18. Music placement: only at cue points; never under speech; no ducking; no genre the person rejected.
+17. Match comparable lines within 1 LU at the same distance and vocal effort. Check each perspective change
+    against the sound script. Phrases stay intact and listeners can identify the source of a repeat or echo.
+18. Score phrases resolve before speech, including tails. Check any sustained pad under speech against its
+    written cue and the clarity of the words. Preserve deliberate silent beats and prior genre decisions.
 19. Background sound: felt, not noticed - footsteps varied and low, birds sparse and distant, no audible loop, one
     ambience level per location, no unmotivated level jump (measure loudness per stem across the whole film), no pops.
+    Attach the scene sound script, whole-scene listening notes and the comparison with the last accepted mix.
 20. Continuity across parts: recurring locations, props and who-is-where match at every join.

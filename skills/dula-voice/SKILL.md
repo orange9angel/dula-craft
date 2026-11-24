@@ -1,6 +1,6 @@
 ---
 name: dula-voice
-description: Voice every line of an animated short with the person's own Volcano Engine Seed-Audio key, keeping each character's voice consistent. Also generates ambience and sound effects. Use for character voices, dialogue audio, voice acting, ambience and sound effects.
+description: Voice an animated short with Volcano Engine Seed-Audio, design a continuous stereo soundscape, place dialogue and score, and review the scene against a reference mix. Use for character voices, ambience, Foley and story-scene mixing.
 ---
 
 # Voices
@@ -8,6 +8,19 @@ description: Voice every line of an animated short with the person's own Volcano
 Script paths are relative to this SKILL.md, and `speak.py` runs from the film folder. This step is optional: recordings or audio from any other tool also work. Put them at `audio/voice/<line id>.wav`, or set `file` on the line.
 
 Talk to the person in their own language.
+
+## Scene soundscape
+
+Before recording, write one sound script per scene. Carry stereo air and activity through picture cuts.
+When the location changes, pre-lap the incoming bed (J-cut) or let the outgoing bed linger (L-cut).
+Match crowd murmur (walla) to the people present. Give recognizable breaths, laughs and efforts to the
+same performers or cast voices. Set dialogue distance by shot, with a shared room response per location.
+Spot Foley to the material and its movement. Shape longer score phrases around speech, with room for
+the punchline and the last note's decay.
+
+Listen to each complete decoded scene and its joins. Compare the mix and aligned stems against a
+comparable scene from the last accepted film. Use the template, mixer and regression checks in the
+[sound design guide](references/sound-design.md).
 
 ## Set up the key (once)
 
