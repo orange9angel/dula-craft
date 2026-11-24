@@ -45,3 +45,23 @@ class AmbienceCheck(unittest.TestCase):
     def test_gentle_fade_and_quiet_short_stem(self):
         self.assertEqual(self.check(10 ** (np.linspace(0, -13, 3 * RATE) / 20))[0], 0)
         self.assertEqual(self.check(np.full(RATE // 10, .03))[0], 0)
+
+    def test_full_mix_checks_each_release_and_ignores_unrelated_drops(self):
+        gain = np.ones(4 * RATE)
+        gain[RATE:2 * RATE] = .01
+        gain[3 * RATE:] = .1
+        code, report = self.check(gain, "--line-end", "1", "--line-end", "3")
+        self.assertEqual(code, 1)
+        self.assertEqual([flag["line_end_s"] for flag in report["flags"]], [1])
+        self.assertEqual([row["max_drop_db"] for row in report["lines"]], [40, 20])
+        self.assertEqual(self.check(gain, "--line-end", "3")[0], 0)
+
+    def test_full_mix_cut_only_exempts_the_change_across_it(self):
+        gain = np.ones(3 * RATE)
+        gain[RATE:] = .01
+        gain[2 * RATE:] = .0001
+        code, report = self.check(gain, "--line-end", ".9", "--line-end", "1",
+                                  "--line-end", "2", "--cut", "1")
+        self.assertEqual(code, 1)
+        self.assertEqual([flag["line_end_s"] for flag in report["flags"]], [2])
+        self.assertEqual(report["lines"][1]["status"], "at_cut")

@@ -103,6 +103,32 @@ The command measures 200 ms RMS windows every 50 ms and compares levels up to
 one second apart within each scene. It exits nonzero on a flagged drop or a
 silent window. The report also gives the largest rise for checking a return.
 
+Set the bed against a representative passage of active speech. Measure both
+stems with the same 250 ms RMS windows. Aim for a busy street about 15–18 dB
+below dialogue. A quieter beat can sit 22–25 dB below it while keeping the
+location audible. Ride the crowd separately and check the underlying air as
+the last voice stops.
+
+Send the dry dialogue to a shared reflection bus for everyone in the same
+space. For an open street, start with the wet return 18–22 dB below the dry bus
+and about 0.4–0.6 s of decay. Let the return ring across clip boundaries. To
+join two parts of a continuous scene, cut between the action frames, remove
+intervening black or silence, and carry the bed and outgoing tails across the cut.
+
+Check what the audience receives by decoding the final mix to WAV. Supply the
+last audible syllable or cry of each line in seconds on that mix's timeline.
+
+```bash
+python <this folder>/scripts/ambience_check.py final_mix.wav --line-end 3.8 --line-end 8.1 --report releases.json
+```
+
+This mode checks trailing 250 ms RMS windows at 50 ms steps around each release.
+It flags a loss over 20 dB between windows up to half a second apart when the
+later window ends in the half-second after the line. A motivated `--cut` bounds
+the measurement to the same scene. The report identifies lines ending exactly
+at a cut or at the end of the recording. Listen through flagged releases and
+across the join to judge whether the ambience and reflections hold together.
+
 ## Check the result
 
 - Listen if you can. If you can't, tell the person "this audio hasn't been checked by ear".
